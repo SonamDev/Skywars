@@ -3,13 +3,16 @@ package io.Sonam.Game.Handlers;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
+import io.Sonam.Game.Menu.KitSelector;
 import io.Sonam.Game.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
@@ -21,6 +24,8 @@ public class ItemListeners implements Listener {
     private SkyWars plugin;
     private MainItems items = new MainItems();
     private HashSet<UUID> uuid = new HashSet<UUID>();
+    private static KitSelector kitSelectorC = new KitSelector();
+    private static Inventory kitSelector = kitSelectorC.getSelector();
 
     public ItemListeners(SkyWars plugin) {
         this.plugin = plugin;
@@ -32,8 +37,7 @@ public class ItemListeners implements Listener {
         if(a.equals(Action.RIGHT_CLICK_AIR) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
             final Player player = e.getPlayer();
             if(e.getPlayer().getItemInHand().isSimilar(items.getKitSelector())) {
-                Inventory inv = Bukkit.createInventory(e.getPlayer(), 27, "Kit Selector");
-                e.getPlayer().openInventory(inv);
+                e.getPlayer().openInventory(kitSelector);
                 return;
             }
             if(e.getPlayer().getItemInHand().isSimilar(items.getLeaveGame())) {
@@ -58,6 +62,16 @@ public class ItemListeners implements Listener {
                     }
                 }, 40L);
             }
+        }
+    }
+
+    @EventHandler
+    public void onItemClick(InventoryClickEvent e) {
+        if(e.getWhoClicked().getItemInHand().isSimilar(items.getKitSelector())) {
+            e.setCancelled(true);
+            Player player = (Player) e.getWhoClicked();
+            player.playSound(player.getLocation(), Sound.WOOD_CLICK, 3, 1);
+            player.closeInventory();
         }
     }
 
