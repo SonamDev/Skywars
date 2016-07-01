@@ -8,11 +8,14 @@
     <artifactId>Skywars</artifactId>
     <version>1.1</version>
 
+
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
+            <systemPath>${project.basedir}/repo/org/spigotmc/spigot/1.8.8-R0.1-SNAPSHOT/spigot-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 
