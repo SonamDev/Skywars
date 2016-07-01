@@ -38,18 +38,23 @@ public class ItemListeners implements Listener {
             }
             if(e.getPlayer().getItemInHand().isSimilar(items.getLeaveGame())) {
                 if(uuid.contains(e.getPlayer().getUniqueId())) {
-                    e.getPlayer().sendMessage(ChatColor.BOLD.toString() + ChatColor.RED + "You cannot cancel this (Yet!)");
+                    uuid.remove(player.getUniqueId());
+                    e.getPlayer().sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Teleportation Canceled!");
                     return;
                 }
-                e.getPlayer().sendMessage(ChatColor.BOLD.toString() + ChatColor.GREEN + "Teleporting you back in 2 seconds...");
+                e.getPlayer().sendMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + "Teleporting you back in 2 seconds, right click again to cancel");
                 uuid.add(e.getPlayer().getUniqueId());
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                     public void run() {
-                        uuid.remove(player.getUniqueId());
-                        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                        out.writeUTF("Connect");
-                        out.writeUTF("dev1a");
-                        player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+                        if(uuid.contains(player.getUniqueId())) {
+                            uuid.remove(player.getUniqueId());
+                            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                            out.writeUTF("Connect");
+                            out.writeUTF("dev1a");
+                            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+                        } else {
+                            return;
+                        }
                     }
                 }, 40L);
             }
