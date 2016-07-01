@@ -1,10 +1,9 @@
 package io.Sonam.Game.Handlers;
 
+import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -12,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PreInit implements Listener {
 
     private SkyWars plugin;
+    private MainItems items = new MainItems();
 
     public PreInit(SkyWars plugin) {
         this.plugin = plugin;
@@ -19,6 +19,8 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoinTest(PlayerJoinEvent e) {
-
+        e.getPlayer().getInventory().clear();
+        e.getPlayer().getInventory().setItem(0, items.getKitSelector());
+        Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " joined!" + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");
     }
 }
