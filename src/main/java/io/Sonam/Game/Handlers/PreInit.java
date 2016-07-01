@@ -42,16 +42,6 @@ public class PreInit implements Listener {
         Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " joined!" + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");
         e.setJoinMessage(null);
 
-        final PacketPlayOutTitle packet = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a("{\'text\':\'Welcome To\', \'color\':\'red\'}"));
-        final PacketPlayOutTitle packet2 = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a("{\'text\':\'SkyWars UHC Mode\', \'color\':\'aqua\'}"));
-
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            public void run() {
-                craftPlayer.getHandle().playerConnection.sendPacket(packet);
-                craftPlayer.getHandle().playerConnection.sendPacket(packet2);
-            }
-        }, 30L);
-
     }
 
     @EventHandler
