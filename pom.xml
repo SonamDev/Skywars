@@ -8,6 +8,12 @@
     <artifactId>Skywars</artifactId>
     <version>1.1</version>
 
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>http://maven.elmakers.com/repository/</url>
+        </repository>
+    </repositories>
 
 
     <dependencies>
@@ -15,7 +21,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
-            <systemPath>${project.basedir}/repo/org/spigotmc/spigot/1.8.8-R0.1-SNAPSHOT/spigot-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 
