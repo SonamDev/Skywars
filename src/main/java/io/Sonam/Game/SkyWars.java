@@ -20,6 +20,7 @@ public class SkyWars extends JavaPlugin {
         getCommand("cstate").setExecutor(new CheckState());
 
         gameManager.setGameState(GameState.PRE_GAME);
+        gameManager.setMaxPlayers(12);
     }
 
     public void onDisable() {
