@@ -43,10 +43,10 @@ public class PreInit implements Listener {
         e.setJoinMessage(null);
 
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
-                "{\'text\':\'Welcome To\', \'color\':\'aqua\'}"
+                "{\"text\":\"Welcome To\", \"color\":\"aqua\"}"
         ));
         PacketPlayOutTitle subtitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a(
-                "{\'text\':\'Skywars UHC Mode\', \'color\':\'yellow\'}"
+                "{\"text\":\"Skywars UHC Mode\", \"color\":\"yellow\"}"
         ));
         craftPlayer.getHandle().playerConnection.sendPacket(title);
         craftPlayer.getHandle().playerConnection.sendPacket(subtitle);
