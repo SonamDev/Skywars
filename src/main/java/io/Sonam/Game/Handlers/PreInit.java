@@ -21,6 +21,7 @@ public class PreInit implements Listener {
     public void onJoinTest(PlayerJoinEvent e) {
         e.getPlayer().getInventory().clear();
         e.getPlayer().getInventory().setItem(0, items.getKitSelector());
+        e.getPlayer().getInventory().setItem(8, items.getLeaveGame());
         Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " joined!" + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");
         e.setJoinMessage(null);
     }
