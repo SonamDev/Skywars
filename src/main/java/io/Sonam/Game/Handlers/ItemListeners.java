@@ -7,6 +7,7 @@ import io.Sonam.Game.Menu.KitSelector;
 import io.Sonam.Game.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -69,7 +70,7 @@ public class ItemListeners implements Listener {
     public void onItemClick(InventoryClickEvent e) {
         if(e.getWhoClicked().getItemInHand().isSimilar(items.getKitSelector())) {
             e.setCancelled(true);
-            if(e.getCurrentItem() == null) {
+            if(e.getCurrentItem().getType().equals(Material.AIR)) {
                 return;
             }
             Player player = (Player) e.getWhoClicked();
