@@ -10,7 +10,7 @@
 
     <repositories>
         <repository>
-            <id>spigot-repo</id>
+            <id>bukkit-repo</id>
             <url>http://maven.elmakers.com/repository/</url>
         </repository>
     </repositories>
@@ -18,8 +18,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
