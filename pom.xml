@@ -28,7 +28,7 @@
         <profile>
             <id>target</id>
             <build>
-                <directory>/home/Sonam/Artifacts</directory>
+                <directory>/home/Sonam/Net1/dev1b/plugins</directory>
             </build>
         </profile>
     </profiles>

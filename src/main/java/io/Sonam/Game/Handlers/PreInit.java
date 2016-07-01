@@ -3,6 +3,7 @@ package io.Sonam.Game.Handlers;
 import io.Sonam.Game.SkyWars;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,7 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoinTest(PlayerJoinEvent e) {
+        Bukkit.broadcastMessage("Testing Packet...");
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                 "{\'text\':\'Testing Packet Stuff\', \'color\':\'red\'}"
         ));
