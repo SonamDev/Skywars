@@ -19,10 +19,6 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoinTest(PlayerJoinEvent e) {
-        Bukkit.broadcastMessage("Testing Packet...");
-        PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
-                "{\'text\':\'Testing Packet Stuff\', \'color\':\'red\'}"
-        ));
-        ((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(title);
+
     }
 }

@@ -3,3 +3,6 @@ name: SkyWars
 version: 1.0
 author: Sonam
 description: SkyWars UHC Mode
+commands:
+  cstate:
+    description: Check GameState
