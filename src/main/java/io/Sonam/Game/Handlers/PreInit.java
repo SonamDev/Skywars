@@ -32,15 +32,13 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        final CraftPlayer craftPlayer = (CraftPlayer) e.getPlayer();
+        e.getPlayer().teleport(new Location(Bukkit.getWorld("Game"), 8.5, 12, 32.5, 180F, 0F));
         e.getPlayer().setHealth(20.0);
         e.getPlayer().setFoodLevel(20);
-        e.getPlayer().teleport(new Location(Bukkit.getWorld("Game"), 8.5, 12, 32.5, 180F, 0F));
         e.getPlayer().getInventory().clear();
         e.getPlayer().getInventory().setItem(0, items.getKitSelector());
         e.getPlayer().getInventory().setItem(8, items.getLeaveGame());
         Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " joined!" + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");
-        e.setJoinMessage(null);
 
     }
 
