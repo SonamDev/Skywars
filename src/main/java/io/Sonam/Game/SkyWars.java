@@ -4,12 +4,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SkyWars extends JavaPlugin {
 
-    public void onEnable() {
+    private static SkyWars plugin;
 
+    public void onEnable() {
+        plugin = this;
     }
 
     public void onDisable() {
 
     }
+
+    public static SkyWars getPlugin() {
+        return plugin;
+    }
+
 
 }

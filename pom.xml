@@ -24,5 +24,14 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>target</id>
+            <build>
+                <directory>/home/Sonam/Artifacts</directory>
+            </build>
+        </profile>
+    </profiles>
+
 
 </project>
