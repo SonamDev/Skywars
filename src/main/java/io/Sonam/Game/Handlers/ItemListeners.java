@@ -5,9 +5,12 @@ import com.google.common.io.ByteStreams;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.Menu.KitSelector;
 import io.Sonam.Game.SkyWars;
+import net.minecraft.server.v1_8_R3.PacketPlayOutNamedSoundEffect;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -69,8 +72,10 @@ public class ItemListeners implements Listener {
     public void onItemClick(InventoryClickEvent e) {
         if(e.getWhoClicked().getItemInHand().isSimilar(items.getKitSelector())) {
             e.setCancelled(true);
+            Location loc = e.getWhoClicked().getLocation();
             Player player = (Player) e.getWhoClicked();
-            player.playSound(player.getLocation(), Sound.WOOD_CLICK, 3, 1);
+            PacketPlayOutNamedSoundEffect soundEffect = new PacketPlayOutNamedSoundEffect("random.wood_click", loc.getZ(), loc.getY(), loc.getZ(), 1F, 1F);
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(soundEffect);
             player.closeInventory();
         }
     }
