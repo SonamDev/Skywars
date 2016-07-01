@@ -40,9 +40,14 @@ public class PreInit implements Listener {
         e.getPlayer().getInventory().setItem(8, items.getLeaveGame());
         Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " joined!" + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
-                "{\'text\':\'TEST?????\'}"
+                "{\'text\':\'Welcome To\', \'color\':\'yellow\'}"
         ));
+        PacketPlayOutTitle stitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a(
+                "{\'text\':\'Skywars UHC Mode\', \'color\':\'red\'}"
+        ));
+
         ((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(title);
+        ((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(stitle);
 
     }
 
