@@ -4,6 +4,7 @@ import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -19,6 +20,7 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoinTest(PlayerJoinEvent e) {
+        e.getPlayer().teleport(new Location(Bukkit.getWorld("Game"), 8.5, 12, 32.5, 180F, 0F));
         e.getPlayer().getInventory().clear();
         e.getPlayer().getInventory().setItem(0, items.getKitSelector());
         e.getPlayer().getInventory().setItem(8, items.getLeaveGame());
