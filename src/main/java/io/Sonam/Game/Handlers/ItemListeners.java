@@ -79,27 +79,34 @@ public class ItemListeners implements Listener {
             switch (e.getCurrentItem().getType()) {
                 case STONE_SWORD:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Champion" + ChatColor.GREEN + " kit!");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), "Champion");
                     break;
                 case BOW:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Archer" + ChatColor.GREEN + " kit!");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), "Archer");
                     break;
                 case IRON_SWORD:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Knight" + ChatColor.GREEN + " kit!");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), "Knight");
                     break;
                 case POTION:
                     if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN + "Scout Kit")) {
                         player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Scout" + ChatColor.GREEN + " kit!");
+                        SkyWars.getKitSelected().put(player.getUniqueId(), "Scout");
                         break;
                     }
                     if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN + "Chemist Kit")) {
                         player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Chemist" + ChatColor.GREEN + " kit!");
+                        SkyWars.getKitSelected().put(player.getUniqueId(), "Chemist");
                         break;
                     }
                 case FLINT_AND_STEEL:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Pyro" + ChatColor.GREEN + " kit!");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), "Pyro");
                     break;
                 case GOLD_CHESTPLATE:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Armorer" + ChatColor.GREEN + " kit!");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), "Armorer");
                     break;
             }
         }

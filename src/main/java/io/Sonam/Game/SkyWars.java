@@ -8,11 +8,15 @@ import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class SkyWars extends JavaPlugin {
 
     private static SkyWars plugin;
     private static GameManager gameManager;
     private PluginListener pluginListener;
+    private static HashMap<UUID, String> kitSelected = new HashMap<UUID, String>();
 
     public void onEnable() {
         plugin = this;
@@ -40,4 +44,7 @@ public class SkyWars extends JavaPlugin {
         return gameManager;
     }
 
+    public static HashMap<UUID, String> getKitSelected() {
+        return kitSelected;
+    }
 }
