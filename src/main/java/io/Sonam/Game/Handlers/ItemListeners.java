@@ -69,6 +69,9 @@ public class ItemListeners implements Listener {
     public void onItemClick(InventoryClickEvent e) {
         if(e.getWhoClicked().getItemInHand().isSimilar(items.getKitSelector())) {
             e.setCancelled(true);
+            if(e.getCurrentItem() == null) {
+                return;
+            }
             Player player = (Player) e.getWhoClicked();
             player.playSound(player.getLocation(), Sound.WOOD_CLICK, 3, 1);
             player.closeInventory();
