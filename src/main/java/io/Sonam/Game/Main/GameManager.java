@@ -4,7 +4,6 @@ import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Threads.Countdown;
 import io.Sonam.Game.Threads.SGCountdown;
 import io.Sonam.Game.Utils.GameState;
-import io.Sonam.Game.Utils.Utils;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -55,10 +54,9 @@ public class GameManager {
     }
 
     public void startGame() {
-        Utils.loadMap("2k");
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
         int plamount = SkyWars.getPlayers().size();
-        for(int i = 0; i <= plamount ; i++) {
+        for(int i = 0; i < plamount ; i++) {
             Bukkit.broadcastMessage(ChatColor.RED + "" + Bukkit.getPlayer(SkyWars.getPlayers().get(i)).getName());
             Bukkit.getPlayer(SkyWars.getPlayers().get(i)).teleport(locations[i]);
         }
