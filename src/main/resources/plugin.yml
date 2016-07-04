@@ -8,3 +8,5 @@ commands:
     description: Check GameState
   forcestart:
     description: Force Start Game
+  restarts:
+    description: Force Start Game

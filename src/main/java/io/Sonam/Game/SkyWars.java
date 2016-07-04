@@ -1,6 +1,7 @@
 package io.Sonam.Game;
 
 import io.Sonam.Game.Commands.CheckState;
+import io.Sonam.Game.Commands.Restart;
 import io.Sonam.Game.Commands.StartGame;
 import io.Sonam.Game.Handlers.ItemListeners;
 import io.Sonam.Game.Handlers.PluginListener;
@@ -39,6 +40,7 @@ public class SkyWars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ItemListeners(this), this);
         getCommand("cstate").setExecutor(new CheckState());
         getCommand("forcestart").setExecutor(new StartGame());
+        getCommand("restarts").setExecutor(new Restart());
 
         if(Bukkit.getServer().unloadWorld("2k",false))
         {
