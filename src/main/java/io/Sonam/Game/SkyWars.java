@@ -35,6 +35,7 @@ public class SkyWars extends JavaPlugin {
         pluginListener = new PluginListener();
         debug = true;
         gameManager = new GameManager();
+        Utils.loadMap("2k");
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
@@ -42,13 +43,6 @@ public class SkyWars extends JavaPlugin {
         getCommand("cstate").setExecutor(new CheckState());
         getCommand("forcestart").setExecutor(new StartGame());
         getCommand("restarts").setExecutor(new Restart());
-
-        if(Bukkit.getServer().unloadWorld("2k",false))
-        {
-            new File("dev1b/2k").delete();
-            Bukkit.broadcastMessage(ChatColor.GREEN + "World Rolledback...");
-            new WorldCreator("2k").createWorld();
-        }
 
         gameManager.setGameState(GameState.PRE_GAME);
         gameManager.setMaxPlayers(12);
