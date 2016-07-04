@@ -27,6 +27,7 @@ public class SkyWars extends JavaPlugin {
     private PluginListener pluginListener;
     private static HashMap<UUID, Kits> kitSelected = new HashMap<UUID, Kits>();
     private static ArrayList<UUID> players = new ArrayList<UUID>();
+    private static ArrayList<UUID> spectators = new ArrayList<UUID>();
     public static boolean debug;
 
     public void onEnable() {
@@ -75,5 +76,9 @@ public class SkyWars extends JavaPlugin {
 
     public static ArrayList<UUID> getPlayers() {
         return players;
+    }
+
+    public static ArrayList<UUID> getSpectators() {
+        return spectators;
     }
 }
