@@ -39,6 +39,7 @@ public class PreInit implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
+        SkyWars.getKitSelected().put(e.getPlayer().getUniqueId(), "Default");
         KitSelectorItems.clearAll(e.getPlayer());
         e.getPlayer().teleport(new Location(Bukkit.getWorld("2k"), 397.5, 8.0, -349.5, 0F, 0F));
         e.getPlayer().setHealth(20.0);

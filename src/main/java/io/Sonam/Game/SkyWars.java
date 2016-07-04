@@ -9,6 +9,7 @@ import io.Sonam.Game.Handlers.PluginListener;
 import io.Sonam.Game.Handlers.PreInit;
 import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,12 +25,15 @@ public class SkyWars extends JavaPlugin {
     private static SkyWars plugin;
     private static GameManager gameManager;
     private PluginListener pluginListener;
-    private static HashMap<UUID, String> kitSelected = new HashMap<UUID, String>();
+    private static HashMap<UUID, Kits> kitSelected = new HashMap<UUID, Kits>();
     private static ArrayList<UUID> players = new ArrayList<UUID>();
     public static boolean debug;
 
     public void onEnable() {
         Utils.loadMap("2k");
+        Bukkit.getWorld("2k").setMonsterSpawnLimit(0);
+        Bukkit.getWorld("2k").setWaterAnimalSpawnLimit(0);
+        Bukkit.getWorld("2k").setAnimalSpawnLimit(0);
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;
@@ -65,7 +69,7 @@ public class SkyWars extends JavaPlugin {
         return gameManager;
     }
 
-    public static HashMap<UUID, String> getKitSelected() {
+    public static HashMap<UUID, Kits> getKitSelected() {
         return kitSelected;
     }
 

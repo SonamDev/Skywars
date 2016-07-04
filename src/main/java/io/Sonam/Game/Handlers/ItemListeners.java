@@ -5,6 +5,7 @@ import com.google.common.io.ByteStreams;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.Menu.KitSelector;
 import io.Sonam.Game.SkyWars;
+import io.Sonam.Game.Utils.Kits;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -79,34 +80,34 @@ public class ItemListeners implements Listener {
             switch (e.getCurrentItem().getType()) {
                 case STONE_SWORD:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Champion" + ChatColor.GREEN + " kit!");
-                    SkyWars.getKitSelected().put(player.getUniqueId(), "Champion");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), Kits.CHAMPION);
                     break;
                 case BOW:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Archer" + ChatColor.GREEN + " kit!");
-                    SkyWars.getKitSelected().put(player.getUniqueId(), "Archer");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), Kits.ARCHER);
                     break;
                 case IRON_SWORD:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Knight" + ChatColor.GREEN + " kit!");
-                    SkyWars.getKitSelected().put(player.getUniqueId(), "Knight");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), Kits.KNIGHT);
                     break;
                 case POTION:
                     if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN + "Scout Kit")) {
                         player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Scout" + ChatColor.GREEN + " kit!");
-                        SkyWars.getKitSelected().put(player.getUniqueId(), "Scout");
+                        SkyWars.getKitSelected().put(player.getUniqueId(), Kits.SCOUT);
                         break;
                     }
                     if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN + "Chemist Kit")) {
                         player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Chemist" + ChatColor.GREEN + " kit!");
-                        SkyWars.getKitSelected().put(player.getUniqueId(), "Chemist");
+                        SkyWars.getKitSelected().put(player.getUniqueId(), Kits.CHEMIST);
                         break;
                     }
                 case FLINT_AND_STEEL:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Pyro" + ChatColor.GREEN + " kit!");
-                    SkyWars.getKitSelected().put(player.getUniqueId(), "Pyro");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), Kits.PYRO);
                     break;
                 case GOLD_CHESTPLATE:
                     player.sendMessage(ChatColor.GREEN + "You have selected the " + ChatColor.YELLOW + "Armorer" + ChatColor.GREEN + " kit!");
-                    SkyWars.getKitSelected().put(player.getUniqueId(), "Armorer");
+                    SkyWars.getKitSelected().put(player.getUniqueId(), Kits.ARMORER);
                     break;
             }
         }
