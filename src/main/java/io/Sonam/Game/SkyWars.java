@@ -35,6 +35,7 @@ public class SkyWars extends JavaPlugin {
         Bukkit.getWorld("2k").setMonsterSpawnLimit(0);
         Bukkit.getWorld("2k").setWaterAnimalSpawnLimit(0);
         Bukkit.getWorld("2k").setAnimalSpawnLimit(0);
+        Bukkit.getWorld("2k").setAutoSave(false);
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;

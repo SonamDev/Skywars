@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -39,24 +40,35 @@ public class GameListeners implements Listener {
     }
 
     @EventHandler
-    public void onDeath(EntityDeathEvent e) {
+    public void onHit(EntityDamageEvent e) {
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                 "{\'text\':\'You Died!\', \'color\':\'red\'}"
         ));
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             Player player = (Player) e.getEntity();
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
-            SkyWars.getSpectators().add(player.getUniqueId());
-            Bukkit.broadcastMessage(ChatColor.YELLOW + player.getName() + " was killed by " + player.getKiller().getName());
-            player.setAllowFlight(true);
-            player.teleport(player.getKiller().getLocation());
-            player.getInventory().clear();
-            KitSelectorItems.clearAll(player);
-            player.getInventory().setItem(8, items.getLeaveGame());
-            player.getInventory().setItem(0, items.getSpectatorMenu());
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 0, false, false));
-            return;
+            if(player.getHealth() - e.getDamage() < 0.1) {
+                e.setCancelled(true);
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
+                SkyWars.getSpectators().add(player.getUniqueId());
+                Bukkit.broadcastMessage(ChatColor.YELLOW + player.getName() + " was killed by " + player.getKiller().getName());
+                player.setAllowFlight(true);
+                player.teleport(player.getKiller().getLocation());
+                player.getInventory().clear();
+                KitSelectorItems.clearAll(player);
+                player.getInventory().setItem(8, items.getLeaveGame());
+                player.getInventory().setItem(0, items.getSpectatorMenu());
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 0, false, false));
+                return;
+            }
+            if(SkyWars.getSpectators().contains(player.getUniqueId())) {
+                e.setCancelled(true);
+            }
         }
+    }
+
+    @EventHandler
+    public void onDeath(EntityDeathEvent e) {
+
     }
 
     @EventHandler
