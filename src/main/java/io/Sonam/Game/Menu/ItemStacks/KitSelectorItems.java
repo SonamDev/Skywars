@@ -16,8 +16,8 @@ public class KitSelectorItems {
         inv.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
         inv.setItem(0, new ItemStack(Material.STONE_SWORD));
         inv.setItem(1, new ItemStack(Material.STONE_AXE));
-        inv.setItem(0, new ItemStack(Material.IRON_PICKAXE));
-        inv.setItem(0, new ItemStack(Material.STONE_SPADE));
+        inv.setItem(2, new ItemStack(Material.IRON_PICKAXE));
+        inv.setItem(3, new ItemStack(Material.STONE_SPADE));
     }
 
 }
