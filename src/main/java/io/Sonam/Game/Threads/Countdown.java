@@ -15,9 +15,11 @@ public class Countdown extends BukkitRunnable {
     public void run() {
         for(Player player : Bukkit.getOnlinePlayers()) {
             if(count > 0) {
+                Bukkit.broadcastMessage(count + "");
                 count--;
                 Utils.sendSubTitle(player, count + "", "red");
             } else if(count == 0) {
+                Bukkit.broadcastMessage(count + "");
                 PacketPlayOutTitle title1 = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.RESET, IChatBaseComponent.ChatSerializer.a(""));
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title1);
                 cancel();

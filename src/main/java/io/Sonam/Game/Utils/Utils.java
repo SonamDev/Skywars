@@ -21,7 +21,7 @@ public class Utils {
     public static void sendSubTitle(Player player, String subtitle, String color1) {
         PacketPlayOutTitle subtitl = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a(
                 "{\'text\':\'"+ subtitle + "\', \'color\':\'" + color1 + "\'}"
-        ));
+        ), 0, 100000, 0);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(subtitl);
     }
 
