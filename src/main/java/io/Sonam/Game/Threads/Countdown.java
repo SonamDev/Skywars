@@ -15,20 +15,23 @@ public class Countdown extends BukkitRunnable {
     int count = 10;
 
     public void run() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (count > -1) {
-                if (count == 0) {
-                    Bukkit.broadcastMessage(count + "");
-                    PacketPlayOutTitle title1 = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.RESET, IChatBaseComponent.ChatSerializer.a(""));
-                    ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title1);
-                    SkyWars.getGameManager().startGame();
-                    cancel();
-                }
-                Bukkit.broadcastMessage(count + "");
+        if (count > 0) {
+            Bukkit.broadcastMessage(count + "");
+            count--;
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 Utils.sendSubTitle(player, count + "", "red");
-                count--;
             }
         }
+        if (count == 0) {
+            Bukkit.broadcastMessage(count + "");
+            PacketPlayOutTitle title1 = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.RESET, IChatBaseComponent.ChatSerializer.a(""));
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title1);
+            }
+            SkyWars.getGameManager().startGame();
+            cancel();
+        }
+
 
     }
 }
