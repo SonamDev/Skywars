@@ -21,6 +21,12 @@ public class Restart implements CommandExecutor {
             player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
         }
 
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Bukkit.shutdown();
 
         return false;

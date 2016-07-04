@@ -60,7 +60,7 @@ public class SkyWars extends JavaPlugin {
     }
 
     public void onDisable() {
-
+        Bukkit.getWorld("2k").setAutoSave(false);
     }
 
     public static SkyWars getPlugin() {
