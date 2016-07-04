@@ -4,7 +4,7 @@ import io.Sonam.Game.Commands.CheckState;
 import io.Sonam.Game.Handlers.ItemListeners;
 import io.Sonam.Game.Handlers.PluginListener;
 import io.Sonam.Game.Handlers.PreInit;
-import io.Sonam.Game.Main.GameManager;
+import io.Sonam.Game.Core.GameManager;
 import io.Sonam.Game.Utils.GameState;
 import org.bukkit.plugin.java.JavaPlugin;
 

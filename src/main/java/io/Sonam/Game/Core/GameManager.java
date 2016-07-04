@@ -1,4 +1,4 @@
-package io.Sonam.Game.Main;
+package io.Sonam.Game.Core;
 
 import io.Sonam.Game.Utils.GameState;
 
@@ -22,4 +22,13 @@ public class GameManager {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public void startGame() {
+
+    }
+
+    public void endGame() {
+
+    }
+
 }
