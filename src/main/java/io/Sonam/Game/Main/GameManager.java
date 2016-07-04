@@ -59,7 +59,7 @@ public class GameManager {
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
         int plamount = SkyWars.getPlayers().size();
         for(int i = 0; i <= plamount ; i++) {
-            Bukkit.broadcastMessage(ChatColor.RED + "" + i);
+            Bukkit.broadcastMessage(ChatColor.RED + "" + Bukkit.getPlayer(SkyWars.getPlayers().get(i)).getName());
             Bukkit.getPlayer(SkyWars.getPlayers().get(i)).teleport(locations[i]);
         }
     }
