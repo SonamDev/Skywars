@@ -20,4 +20,12 @@ public class KitSelectorItems {
         inv.setItem(3, new ItemStack(Material.STONE_SPADE));
     }
 
+    public static void clearAll(Player player) {
+        PlayerInventory inv = player.getInventory();
+        inv.setHelmet(new ItemStack(Material.AIR));
+        inv.setBoots(new ItemStack(Material.AIR));
+        inv.setLeggings(new ItemStack(Material.AIR));
+        inv.setChestplate(new ItemStack(Material.AIR));
+    }
+
 }
