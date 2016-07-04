@@ -34,9 +34,9 @@ public class SkyWars extends JavaPlugin {
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;
+        gameManager = new GameManager();
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
-        gameManager = new GameManager();
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
         getServer().getPluginManager().registerEvents(new ItemListeners(this), this);
         getCommand("cstate").setExecutor(new CheckState());
@@ -58,6 +58,7 @@ public class SkyWars extends JavaPlugin {
             }
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + gameManager.getLocations().toString());
     }
 
     public void onDisable() {

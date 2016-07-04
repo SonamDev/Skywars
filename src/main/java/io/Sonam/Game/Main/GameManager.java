@@ -78,4 +78,8 @@ public class GameManager {
         startCountdown(forced);
     }
 
+    public static Location[] getLocations() {
+        return locations;
+    }
+
 }
