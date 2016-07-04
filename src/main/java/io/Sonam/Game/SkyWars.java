@@ -8,6 +8,7 @@ import io.Sonam.Game.Handlers.PluginListener;
 import io.Sonam.Game.Handlers.PreInit;
 import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.Game.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -38,6 +39,7 @@ public class SkyWars extends JavaPlugin {
         getCommand("cstate").setExecutor(new CheckState());
         getCommand("forcestart").setExecutor(new StartGame());
         getCommand("restarts").setExecutor(new Restart());
+        Utils.loadMap("2k");
 
         gameManager.setGameState(GameState.PRE_GAME);
         gameManager.setMaxPlayers(12);

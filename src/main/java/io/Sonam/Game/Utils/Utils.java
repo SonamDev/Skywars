@@ -4,6 +4,7 @@ import io.Sonam.Game.SkyWars;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -50,6 +51,7 @@ public class Utils {
     //Loading maps (MUST BE CALLED AFTER UNLOAD MAPS TO FINISH THE ROLLBACK PROCESS)
     public static void loadMap(String mapname){
         Bukkit.getServer().createWorld(new WorldCreator(mapname));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Map Loaded.");
     }
 
     //Maprollback method, because were too lazy to type 2 lines
