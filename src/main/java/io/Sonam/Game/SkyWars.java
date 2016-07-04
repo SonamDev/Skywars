@@ -54,7 +54,6 @@ public class SkyWars extends JavaPlugin {
     }
 
     public void onDisable() {
-        gameManager.endGame();
     }
 
     public static SkyWars getPlugin() {
