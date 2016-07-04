@@ -16,7 +16,6 @@ public class SGCountdown extends BukkitRunnable {
     }
 
     public void run() {
-        Bukkit.broadcastMessage(ChatColor.GREEN + "20 seconds until start!");
         for(Player player : Bukkit.getOnlinePlayers()) {
             if(Bukkit.getOnlinePlayers().size() < 10) {
                 if(!forced) {
