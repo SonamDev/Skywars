@@ -21,12 +21,13 @@ CheckState implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(args.length == 1) {
             if(args[0].equalsIgnoreCase("test")) {
+                PacketPlayOutTitle times = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, IChatBaseComponent.ChatSerializer.a(""), 0, 1000000, 0);
                 final PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                         "{\'text\':\'Game starts in\', \'color\':\'yellow\'}"
                 ), 0, 1000000, 0);
                 final Player player = (Player) sender;
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(times);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
-
                 BukkitTask task = new Countdown().runTaskTimer(SkyWars.getPlugin(), 0, 20);
 
                 return false;
