@@ -27,7 +27,7 @@ CheckState implements CommandExecutor {
                 final Player player = (Player) sender;
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
 
-                BukkitTask task = new Countdown().runTaskTimer(SkyWars.getPlugin(), 20, 20);
+                BukkitTask task = new Countdown().runTaskTimer(SkyWars.getPlugin(), 0, 20);
 
                 return false;
             }
