@@ -11,18 +11,19 @@ public class Countdown extends BukkitRunnable {
     int count = 10;
 
     public void run() {
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(count > 0) {
-                count--;
+        if(count > 0) {
+            count--;
+            for(Player player : Bukkit.getOnlinePlayers()) {
                 Utils.sendSubTitle(player, count + "", "red");
-                if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
-            } else {
-                Utils.clearTitle(player);
-                SkyWars.getGameManager().startGame();
-                if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
-                cancel();
             }
+            if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
+        } else {
+
+            SkyWars.getGameManager().startGame();
+            if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
+            cancel();
         }
+
 
 
 
