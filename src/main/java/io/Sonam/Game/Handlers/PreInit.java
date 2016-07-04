@@ -1,5 +1,6 @@
 package io.Sonam.Game.Handlers;
 
+import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Utils.GameState;
@@ -38,8 +39,7 @@ public class PreInit implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
-
-        Bukkit.broadcastMessage(SkyWars.getPlayers().toString() + SkyWars.getPlayers().size());
+        KitSelectorItems.clearAll(e.getPlayer());
         e.getPlayer().teleport(new Location(Bukkit.getWorld("2k"), 397.5, 8.0, -349.5, 0F, 0F));
         e.getPlayer().setHealth(20.0);
         e.getPlayer().setFoodLevel(20);
@@ -65,9 +65,10 @@ public class PreInit implements Listener {
     @EventHandler
     public void onLeave(PlayerQuitEvent e) {
         SkyWars.getPlayers().remove(e.getPlayer().getUniqueId());
+        int ez = Bukkit.getOnlinePlayers().size() - 1;
         switch (SkyWars.getGameManager().getGameState()) {
             case PRE_GAME:
-                Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " left. " + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");
+                Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " left. " + ChatColor.GREEN + " [" + ez +"/" + SkyWars.getGameManager().getMaxPlayers() + "]");
                 break;
             case STARTING:
                 Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " logged out. ");
