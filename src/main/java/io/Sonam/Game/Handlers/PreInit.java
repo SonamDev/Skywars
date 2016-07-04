@@ -17,8 +17,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.potion.PotionEffectType;
 
 public class PreInit implements Listener {
 
@@ -41,6 +43,7 @@ public class PreInit implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
         SkyWars.getKitSelected().put(e.getPlayer().getUniqueId(), Kits.DEFAULT);
+        e.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
         KitSelectorItems.clearAll(e.getPlayer());
         e.getPlayer().teleport(new Location(Bukkit.getWorld("2k"), 397.5, 8.0, -349.5, 0F, 0F));
         e.getPlayer().setHealth(20.0);
@@ -61,6 +64,13 @@ public class PreInit implements Listener {
 
         if(Bukkit.getOnlinePlayers().size() > 9) {
             SkyWars.getGameManager().testPreInit(false);
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e) {
+        if(SkyWars.getGameManager().getGameState().equals(GameState.PRE_GAME)) {
+            e.setCancelled(true);
         }
     }
 
