@@ -14,12 +14,12 @@ public class Countdown extends BukkitRunnable {
         for(Player player : Bukkit.getOnlinePlayers()) {
             if(count > 0) {
                 count--;
-                if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
                 Utils.sendSubTitle(player, count + "", "red");
-            } else if(count == 0) {
                 if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
+            } else {
                 Utils.clearTitle(player);
                 SkyWars.getGameManager().startGame();
+                if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
                 cancel();
             }
         }
