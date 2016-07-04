@@ -1,7 +1,10 @@
 package io.Sonam.Game.Utils;
 
+import io.Sonam.Game.SkyWars;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import org.bukkit.Bukkit;
+import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -34,6 +37,25 @@ public class Utils {
         ));
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(clear);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(reset);
+    }
+
+    //Unloading maps, to rollback maps. Will delete all player builds until last server save
+    public static void unloadMap(String mapname){
+        if(Bukkit.getServer().unloadWorld(Bukkit.getServer().getWorld(mapname), false)){
+            SkyWars.getPlugin().getLogger().info("Successfully unloaded " + mapname);
+        }else{
+            SkyWars.getPlugin().getLogger().severe("COULD NOT UNLOAD " + mapname);
+        }
+    }
+    //Loading maps (MUST BE CALLED AFTER UNLOAD MAPS TO FINISH THE ROLLBACK PROCESS)
+    public static void loadMap(String mapname){
+        Bukkit.getServer().createWorld(new WorldCreator(mapname));
+    }
+
+    //Maprollback method, because were too lazy to type 2 lines
+    public static void rollback(String mapname){
+        unloadMap(mapname);
+        loadMap(mapname);
     }
 
 }

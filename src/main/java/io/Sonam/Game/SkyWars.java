@@ -8,6 +8,7 @@ import io.Sonam.Game.Handlers.PluginListener;
 import io.Sonam.Game.Handlers.PreInit;
 import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.Game.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.WorldCreator;
@@ -60,7 +61,7 @@ public class SkyWars extends JavaPlugin {
     }
 
     public void onDisable() {
-        Bukkit.getWorld("2k").setAutoSave(false);
+        Utils.unloadMap("2k");
     }
 
     public static SkyWars getPlugin() {
