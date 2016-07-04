@@ -23,7 +23,7 @@ CheckState implements CommandExecutor {
             if(args[0].equalsIgnoreCase("test")) {
                 final PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                         "{\'text\':\'Game starts in\', \'color\':\'yellow\'}"
-                ), 0, 1000, 0);
+                ), 0, 1000000, 0);
                 final Player player = (Player) sender;
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
 
