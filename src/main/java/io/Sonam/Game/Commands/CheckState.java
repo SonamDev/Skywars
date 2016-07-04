@@ -12,7 +12,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 public class
@@ -24,7 +23,7 @@ CheckState implements CommandExecutor {
                 PacketPlayOutTitle times = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, IChatBaseComponent.ChatSerializer.a(""), 0, 1000000, 0);
                 final PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                         "{\'text\':\'Game starts in\', \'color\':\'yellow\'}"
-                ), 0, 1000000, 0);
+                ));
                 final Player player = (Player) sender;
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(times);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
@@ -33,6 +32,8 @@ CheckState implements CommandExecutor {
                 return false;
             }
             Player target = Bukkit.getPlayer(args[0]);
+            Player[] players = (Player[]) Bukkit.getOnlinePlayers().toArray();
+            Bukkit.broadcastMessage(players[0].getName());
             if(SkyWars.getKitSelected().containsKey(target.getUniqueId())) {
                 sender.sendMessage(ChatColor.GREEN + "That player is using the " + SkyWars.getKitSelected().get(target.getUniqueId()) + " kit.");
                 return false;
