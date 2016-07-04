@@ -28,6 +28,7 @@ public class SkyWars extends JavaPlugin {
     public static boolean debug;
 
     public void onEnable() {
+        Utils.loadMap("2k");
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;
@@ -39,7 +40,6 @@ public class SkyWars extends JavaPlugin {
         getCommand("cstate").setExecutor(new CheckState());
         getCommand("forcestart").setExecutor(new StartGame());
         getCommand("restarts").setExecutor(new Restart());
-        Utils.loadMap("2k");
 
         gameManager.setGameState(GameState.PRE_GAME);
         gameManager.setMaxPlayers(12);
