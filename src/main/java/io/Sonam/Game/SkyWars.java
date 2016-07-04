@@ -35,7 +35,6 @@ public class SkyWars extends JavaPlugin {
         pluginListener = new PluginListener();
         debug = true;
         gameManager = new GameManager();
-        Utils.loadMap("2k");
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
@@ -55,7 +54,7 @@ public class SkyWars extends JavaPlugin {
     }
 
     public void onDisable() {
-        Utils.unloadMap("2k");
+
     }
 
     public static SkyWars getPlugin() {

@@ -4,6 +4,7 @@ import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Threads.Countdown;
 import io.Sonam.Game.Threads.SGCountdown;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.Game.Utils.Utils;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -56,14 +57,13 @@ public class GameManager {
     public void startGame() {
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
         int plamount = Bukkit.getOnlinePlayers().size();
-        for(int i = 0; i < plamount - 1; i++) {
+        for(int i = 0; i <= plamount ; i++) {
             Bukkit.getPlayer(SkyWars.getPlayers().get(i)).teleport(locations[i]);
         }
     }
 
     public void endGame() {
-
-
+        Utils.rollback("2k");
     }
 
     public void startCountdown(boolean forced) {
