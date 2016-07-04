@@ -52,7 +52,6 @@ public class SkyWars extends JavaPlugin {
             }
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + gameManager.getLocations().toString());
     }
 
     public void onDisable() {
