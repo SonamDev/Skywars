@@ -56,9 +56,9 @@ public class GameManager {
 
     public void startGame() {
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
-        int plamount = Bukkit.getOnlinePlayers().size();
+        int plamount = SkyWars.getPlayers().size();
         for(int i = 0; i <= plamount ; i++) {
-            Bukkit.getPlayer(SkyWars.getPlayers().get(i - 1)).teleport(locations[i - 1]);
+            Bukkit.getPlayer(SkyWars.getPlayers().get(i)).teleport(locations[i]);
         }
     }
 
