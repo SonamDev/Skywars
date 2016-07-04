@@ -55,6 +55,7 @@ public class GameManager {
     }
 
     public void startGame() {
+        Utils.loadMap("2k");
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
         int plamount = SkyWars.getPlayers().size();
         for(int i = 0; i <= plamount ; i++) {
@@ -64,7 +65,7 @@ public class GameManager {
     }
 
     public void endGame() {
-        Utils.rollback("2k");
+
     }
 
     public void startCountdown(boolean forced) {

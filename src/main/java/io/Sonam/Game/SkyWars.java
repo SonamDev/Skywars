@@ -8,17 +8,13 @@ import io.Sonam.Game.Handlers.PluginListener;
 import io.Sonam.Game.Handlers.PreInit;
 import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
-import io.Sonam.Game.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.UUID;
 
 public class SkyWars extends JavaPlugin {
@@ -54,6 +50,7 @@ public class SkyWars extends JavaPlugin {
     }
 
     public void onDisable() {
+
     }
 
     public static SkyWars getPlugin() {
