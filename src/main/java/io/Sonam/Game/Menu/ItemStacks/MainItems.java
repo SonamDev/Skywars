@@ -34,9 +34,9 @@ public class MainItems {
     }
 
     private ItemStack spectatorMenu() {
-        ItemStack item = new ItemStack(Material.BED);
+        ItemStack item = new ItemStack(Material.COMPASS);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ChatColor.RED + "Spectator Menu " + ChatColor.GRAY + "(Right Click)");
+        meta.setDisplayName(ChatColor.YELLOW + "Spectator Menu " + ChatColor.GRAY + "(Right Click)");
         List<String> lore = new ArrayList<String>();
         lore.add(ChatColor.GRAY + "Right click to open the Spectator Menu!");
         meta.setLore(lore);

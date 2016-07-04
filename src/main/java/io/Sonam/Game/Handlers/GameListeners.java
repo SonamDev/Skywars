@@ -7,6 +7,7 @@ import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
@@ -44,20 +45,27 @@ public class GameListeners implements Listener {
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                 "{\'text\':\'You Died!\', \'color\':\'red\'}"
         ));
+        PacketPlayOutTitle resetsub = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, IChatBaseComponent.ChatSerializer.a(
+                ""
+        ));
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             Player player = (Player) e.getEntity();
             if(player.getHealth() - e.getDamage() < 0.1) {
                 e.setCancelled(true);
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsub);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
                 SkyWars.getSpectators().add(player.getUniqueId());
                 Bukkit.broadcastMessage(ChatColor.YELLOW + player.getName() + " was killed by " + player.getKiller().getName());
                 player.setAllowFlight(true);
-                player.teleport(player.getKiller().getLocation());
+                Location[] locations = SkyWars.getGameManager().getLocations();
+                Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
+                loc.setY(loc.getY() + 1.5);
+                player.teleport(loc);
                 player.getInventory().clear();
                 KitSelectorItems.clearAll(player);
                 player.getInventory().setItem(8, items.getLeaveGame());
                 player.getInventory().setItem(0, items.getSpectatorMenu());
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 0, false, false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 return;
             }
             if(SkyWars.getSpectators().contains(player.getUniqueId())) {

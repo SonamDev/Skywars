@@ -20,7 +20,7 @@ public class GameManager {
 
     private int maxPlayers;
     private GameState gameState;
-    private static Location[] locations = {
+    private Location[] locations = {
             new Location(Bukkit.getWorld("2k"), 325.5, 44.0, -328.5, 90, 0),
             new Location(Bukkit.getWorld("2k"), 306.5, 44.0, -310.5, 180, 0),
             new Location(Bukkit.getWorld("2k"), 306.5, 44.0, -346.5, 0, 0),
@@ -86,7 +86,7 @@ public class GameManager {
         startCountdown(forced);
     }
 
-    public static Location[] getLocations() {
+    public Location[] getLocations() {
         return locations;
     }
 
