@@ -25,4 +25,15 @@ public class Utils {
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(subtitl);
     }
 
+    public static void clearTitle(Player player) {
+        PacketPlayOutTitle clear = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.CLEAR, IChatBaseComponent.ChatSerializer.a(
+                ""
+        ));
+        PacketPlayOutTitle reset = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.RESET, IChatBaseComponent.ChatSerializer.a(
+                ""
+        ));
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(clear);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(reset);
+    }
+
 }

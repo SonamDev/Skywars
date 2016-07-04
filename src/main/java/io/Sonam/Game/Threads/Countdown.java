@@ -2,11 +2,7 @@ package io.Sonam.Game.Threads;
 
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Utils.Utils;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -16,17 +12,16 @@ public class Countdown extends BukkitRunnable {
 
     public void run() {
         if (count > 0) {
-            Bukkit.broadcastMessage(count + "");
+            if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
             count--;
             for (Player player : Bukkit.getOnlinePlayers()) {
                 Utils.sendSubTitle(player, count + "", "red");
             }
         }
         if (count == 0) {
-            Bukkit.broadcastMessage(count + "");
-            PacketPlayOutTitle title1 = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.RESET, IChatBaseComponent.ChatSerializer.a(""));
+            if(SkyWars.debug) Bukkit.broadcastMessage(count + "");
             for (Player player : Bukkit.getOnlinePlayers()) {
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title1);
+                Utils.clearTitle(player);
             }
             SkyWars.getGameManager().startGame();
             cancel();

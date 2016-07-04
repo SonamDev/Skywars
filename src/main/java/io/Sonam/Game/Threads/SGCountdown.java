@@ -16,19 +16,17 @@ public class SGCountdown extends BukkitRunnable {
     }
 
     public void run() {
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(Bukkit.getOnlinePlayers().size() < 10) {
-                if(!forced) {
-                    Bukkit.broadcastMessage(ChatColor.RED + "Not enough players to start!");
-                    cancel();
-                }
-            }
-            if(count > 0) {
-                count--;
-            } else if(count == 0) {
-                SkyWars.getGameManager().startPreGame();
+        if(Bukkit.getOnlinePlayers().size() < 10) {
+            if(!forced) {
+                Bukkit.broadcastMessage(ChatColor.RED + "Not enough players to start!");
                 cancel();
             }
+        }
+        if(count > 0) {
+            count--;
+        } else if(count == 0) {
+            SkyWars.getGameManager().startPreGame();
+            cancel();
         }
     }
 
