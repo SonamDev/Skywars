@@ -37,6 +37,7 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
         e.getPlayer().teleport(new Location(Bukkit.getWorld("Game"), 8.5, 12, 32.5, 180F, 0F));
         e.getPlayer().setHealth(20.0);
         e.getPlayer().setFoodLevel(20);
@@ -61,6 +62,7 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent e) {
+        SkyWars.getPlayers().remove(e.getPlayer().getUniqueId());
         switch (SkyWars.getGameManager().getGameState()) {
             case PRE_GAME:
                 Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " left. " + ChatColor.GREEN + " [" + Bukkit.getOnlinePlayers().size() + "/" + SkyWars.getGameManager().getMaxPlayers() + "]");

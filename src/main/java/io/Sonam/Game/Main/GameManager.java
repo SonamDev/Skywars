@@ -15,7 +15,13 @@ public class GameManager {
 
     private int maxPlayers;
     private GameState gameState;
-    private static Location[] locations;
+    private static Location[] locations = {
+            new Location(Bukkit.getWorld("2k"), 325.5, 44.0, -328.5, 90, 0),
+            new Location(Bukkit.getWorld("2k"), 306.5, 44.0, -310.5, 180, 0),
+            new Location(Bukkit.getWorld("2k"), 306.5, 44.0, -346.5, 0, 0),
+            new Location(Bukkit.getWorld("2k"), 325.5, 44.0, -328.5, 90, 0),
+            new Location(Bukkit.getWorld("2k"), 325.5, 44.0, -328.5, 90, 0),
+    };
 
     public int getMaxPlayers() {
         return maxPlayers;
@@ -48,6 +54,10 @@ public class GameManager {
 
     public void startGame() {
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
+        int plamount = Bukkit.getOnlinePlayers().size();
+        for(int i = 0; i < plamount; i++) {
+            Bukkit.getPlayer(SkyWars.getPlayers().get(i)).teleport(locations[i]);
+        }
     }
 
     public void endGame() {

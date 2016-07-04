@@ -6,3 +6,5 @@ description: SkyWars UHC Mode
 commands:
   cstate:
     description: Check GameState
+  forcestart:
+    description: Force Start Game
