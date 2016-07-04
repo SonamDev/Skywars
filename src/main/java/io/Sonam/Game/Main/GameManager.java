@@ -65,8 +65,4 @@ public class GameManager {
         startCountdown(forced);
     }
 
-    static {
-        locations[0] = new Location(Bukkit.getWorld("2k"), 325.5, 44, -328, 90, 0);
-        locations[1] = new Location(Bukkit.getWorld("2k"), 306.5, 44, -310.5, 180, 0);
-    }
 }
