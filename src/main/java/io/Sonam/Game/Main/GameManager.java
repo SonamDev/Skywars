@@ -1,5 +1,6 @@
 package io.Sonam.Game.Main;
 
+import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Threads.Countdown;
 import io.Sonam.Game.Threads.SGCountdown;
@@ -57,7 +58,9 @@ public class GameManager {
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
         int plamount = SkyWars.getPlayers().size();
         for(int i = 0; i < plamount ; i++) {
-            Bukkit.getPlayer(SkyWars.getPlayers().get(i)).teleport(locations[i]);
+            Player target = Bukkit.getPlayer(SkyWars.getPlayers().get(i));
+            target.teleport(locations[i]);
+            KitSelectorItems.giveDefault(target);
         }
     }
 

@@ -3,6 +3,7 @@ package io.Sonam.Game;
 import io.Sonam.Game.Commands.CheckState;
 import io.Sonam.Game.Commands.Restart;
 import io.Sonam.Game.Commands.StartGame;
+import io.Sonam.Game.Handlers.GameListeners;
 import io.Sonam.Game.Handlers.ItemListeners;
 import io.Sonam.Game.Handlers.PluginListener;
 import io.Sonam.Game.Handlers.PreInit;
@@ -37,6 +38,7 @@ public class SkyWars extends JavaPlugin {
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
         getServer().getPluginManager().registerEvents(new ItemListeners(this), this);
+        getServer().getPluginManager().registerEvents(new GameListeners(), this);
         getCommand("cstate").setExecutor(new CheckState());
         getCommand("forcestart").setExecutor(new StartGame());
         getCommand("restarts").setExecutor(new Restart());
