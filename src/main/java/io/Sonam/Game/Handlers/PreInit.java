@@ -4,6 +4,7 @@ import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.Game.Utils.Kits;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -39,7 +40,7 @@ public class PreInit implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
-        SkyWars.getKitSelected().put(e.getPlayer().getUniqueId(), "Default");
+        SkyWars.getKitSelected().put(e.getPlayer().getUniqueId(), Kits.DEFAULT);
         KitSelectorItems.clearAll(e.getPlayer());
         e.getPlayer().teleport(new Location(Bukkit.getWorld("2k"), 397.5, 8.0, -349.5, 0F, 0F));
         e.getPlayer().setHealth(20.0);
