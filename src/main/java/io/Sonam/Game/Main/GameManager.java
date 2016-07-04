@@ -1,4 +1,4 @@
-package io.Sonam.Game.Core;
+package io.Sonam.Game.Main;
 
 import io.Sonam.Game.Utils.GameState;
 
