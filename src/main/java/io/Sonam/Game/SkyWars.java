@@ -52,7 +52,7 @@ public class SkyWars extends JavaPlugin {
     }
 
     public void onDisable() {
-
+        Utils.unloadMap("2k");
     }
 
     public static SkyWars getPlugin() {
