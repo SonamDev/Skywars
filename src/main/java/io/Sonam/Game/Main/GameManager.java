@@ -74,6 +74,7 @@ public class GameManager {
     }
 
     public void startGame() {
+        SkyWars.getChestFiller().randomizeChests();
         SkyWars.getGameManager().setGameState(GameState.IN_GAME);
         Collections.shuffle(SkyWars.getPlayers());
         int plamount = SkyWars.getPlayers().size();

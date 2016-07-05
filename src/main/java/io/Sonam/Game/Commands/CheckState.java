@@ -18,6 +18,7 @@ CheckState implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player player = (Player) sender;
         if(args.length == 1) {
+
             CuboidSelection sel = SkyWars.getMap();
             Vector min = sel.getNativeMinimumPoint();
             Vector max = sel.getNativeMaximumPoint();

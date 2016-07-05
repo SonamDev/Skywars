@@ -33,7 +33,7 @@ public class SkyWars extends JavaPlugin {
     public static boolean gameRunning;
     private static CuboidSelection map;
     private static HashSet<Location> chests = new HashSet<Location>();
-    private ChestFiller chestFiller;
+    private static ChestFiller chestFiller;
     public World world;
 
     public void onEnable() {
@@ -90,11 +90,6 @@ public class SkyWars extends JavaPlugin {
                 }
             }
         }
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-            public void run() {
-                chestFiller.randomizeChests();
-            }
-        }, 20L);
     }
 
     public void onDisable() {
@@ -127,5 +122,9 @@ public class SkyWars extends JavaPlugin {
 
     public static HashSet<Location> getChests() {
         return chests;
+    }
+
+    public static ChestFiller getChestFiller() {
+        return chestFiller;
     }
 }
