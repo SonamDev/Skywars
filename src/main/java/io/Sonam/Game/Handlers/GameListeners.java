@@ -94,9 +94,16 @@ public class GameListeners implements Listener {
     public void onDeath(GamePlayerDeathEvent e) {
         Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called > " + SkyWars.getSpectators().size() + " >> " + Bukkit.getOnlinePlayers().size());
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
-            Bukkit.broadcastMessage("");
-            Bukkit.broadcastMessage(ChatColor.GREEN + "%%gameWinner%% won the game!");
-            Bukkit.broadcastMessage("");
+
+            String winner;
+            for(Player player : Bukkit.getOnlinePlayers()) {
+                if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
+                    winner = player.getName();
+                    Bukkit.broadcastMessage("");
+                    Bukkit.broadcastMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + winner + " won the game!");
+                    Bukkit.broadcastMessage("");
+                }
+            }
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
                     SkyWars.getGameManager().endGame();

@@ -96,10 +96,12 @@ public class GameManager {
         Utils.unloadMap("2k");
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Bukkit.shutdown();
     }
 
     public void startCountdown(boolean forced) {
