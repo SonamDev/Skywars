@@ -98,14 +98,13 @@ public class GameManager {
 
         SkyWars.getGameManager().setGameState(GameState.REBOOTING);
 
-        try {
-            Thread.sleep(1000);
-            Utils.rollback("2k");
-            Thread.sleep(1000);
-            Bukkit.shutdown();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Utils.rollback("2k");
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
+            public void run() {
+                Bukkit.shutdown();
+            }
+        }, 60L);
 
     }
 
