@@ -1,5 +1,6 @@
 package io.Sonam.Game.Handlers;
 
+import io.Sonam.Game.Events.GamePlayerDeathEvent;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
@@ -17,7 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -56,6 +56,7 @@ public class GameListeners implements Listener {
                 e.setCancelled(true);
                 player.setAllowFlight(true);
                 player.setFlying(true);
+                Bukkit.getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 for(Player p : Bukkit.getOnlinePlayers()) {
                     if(!SkyWars.getSpectators().contains(p.getUniqueId())) {
@@ -90,8 +91,17 @@ public class GameListeners implements Listener {
     }
 
     @EventHandler
-    public void onDeath(EntityDeathEvent e) {
-
+    public void onDeath(GamePlayerDeathEvent e) {
+        if((SkyWars.getSpectators().size() - 1) == Bukkit.getOnlinePlayers().size()) {
+            Bukkit.broadcastMessage("");
+            Bukkit.broadcastMessage(ChatColor.GREEN + "%%gameWinner%% won the game!");
+            Bukkit.broadcastMessage("");
+            Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
+                public void run() {
+                    SkyWars.getGameManager().endGame();
+                }
+            }, 120L);
+        }
     }
 
     @EventHandler

@@ -1,11 +1,14 @@
 package io.Sonam.Game.Main;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Threads.Countdown;
 import io.Sonam.Game.Threads.SGCountdown;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
+import io.Sonam.Game.Utils.Utils;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -78,7 +81,25 @@ public class GameManager {
     }
 
     public void endGame() {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Connect");
+        out.writeUTF("dev1a");
 
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
+        }
+
+        while(Bukkit.getOnlinePlayers().size() != 0) {
+            return;
+        }
+
+        Utils.unloadMap("2k");
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void startCountdown(boolean forced) {
