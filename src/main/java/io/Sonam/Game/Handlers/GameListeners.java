@@ -58,6 +58,8 @@ public class GameListeners implements Listener {
                 for(Player p : Bukkit.getOnlinePlayers()) {
                     if(!SkyWars.getSpectators().contains(p.getUniqueId())) {
                         p.hidePlayer(player);
+                    } else {
+                        p.showPlayer(player);
                     }
                 }
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
