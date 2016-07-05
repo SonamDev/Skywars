@@ -63,8 +63,8 @@ public class SkyWars extends JavaPlugin {
 
     public void onDisable() {
         try {
+            Utils.rollback("2k");
             Thread.sleep(1000);
-            Utils.unloadMap("2k");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
