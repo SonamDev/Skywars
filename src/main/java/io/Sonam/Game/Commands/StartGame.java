@@ -10,8 +10,12 @@ import org.bukkit.command.CommandSender;
 public class StartGame implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!SkyWars.forced) {
+            SkyWars.forced = true;
+        } else {
+            return false;
+        }
         if(SkyWars.debug) Bukkit.broadcastMessage(ChatColor.RED + "[ADMIN] " + sender.getName() + ChatColor.YELLOW +  " force started the game.");
-
         SkyWars.getGameManager().testPreInit(true);
         return false;
     }

@@ -35,6 +35,7 @@ public class SkyWars extends JavaPlugin {
     private static HashSet<Location> chests = new HashSet<Location>();
     private static ChestFiller chestFiller;
     public World world;
+    public static boolean forced = false;
 
     public void onEnable() {
         Utils.loadMap(GameManager.GAME_WORLD);
