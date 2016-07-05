@@ -65,11 +65,6 @@ public class SkyWars extends JavaPlugin {
                 players.add(player.getUniqueId());
             }
         }
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-            public void run() {
-                setChestLocations();
-            }
-        }, 30L);
         chestFiller = new ChestFiller();
         setChestLocations();
     }

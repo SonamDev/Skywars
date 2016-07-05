@@ -17,8 +17,10 @@ import java.util.Random;
 public class ChestFiller {
 
     public void randomizeChests() {
+        int number = 0;
         for(Location loc : SkyWars.getChests()) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Filling chests...");
+            number++;
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Filling chest " + number);
             Chest chest = (Chest) loc.getBlock().getState();
             Inventory inv = chest.getBlockInventory();
             ArrayList<Integer> intArray = new ArrayList<Integer>(14);
@@ -32,27 +34,29 @@ public class ChestFiller {
                 switch (integ) {
                     case 1:
                         inv.setItem(i, new ItemStack(Material.LOG, 32));
-                        break;
+                        Bukkit.getLogger().info("Filled with log " + number);
                     case 14:
                         inv.setItem(i, new ItemStack(Material.GOLDEN_APPLE));
-                        break;
+                        Bukkit.getLogger().info("Filled with gapple " + number);
                     case 3:
                         inv.setItem(i, new ItemStack(Material.DIAMOND_PICKAXE));
-                        break;
+                        Bukkit.getLogger().info("Filled with d pick " + number);
                     case 4:
                         inv.setItem(i, new ItemStack(Material.IRON_AXE));
-                        break;
+                        Bukkit.getLogger().info("Filled with iron pick " + number);
                     case 5:
                         inv.setItem(i, new ItemStack(Material.STONE, 64));
-                        break;
+                        Bukkit.getLogger().info("Filled with stone " + number);
                     case 6:
                         ItemStack sword = new ItemStack(Material.STONE_SWORD);
                         sword.addEnchantment(Enchantment.DAMAGE_ALL, 1);
                         inv.setItem(i, sword);
-                        break;
+                        Bukkit.getLogger().info("Filled with stone sword " + number);
                     case 7:
                         inv.setItem(i, new ItemStack(Material.COOKED_BEEF, 32));
-                        break;
+                        Bukkit.getLogger().info("Filled with steak " + number);
+                    default:
+                        inv.setItem(i, new ItemStack(Material.AIR));
                 }
             }
         }
