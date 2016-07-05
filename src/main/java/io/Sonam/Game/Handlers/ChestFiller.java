@@ -23,14 +23,17 @@ public class ChestFiller {
             Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Filling chest " + number);
             Chest chest = (Chest) loc.getBlock().getState();
             Inventory inv = chest.getInventory();
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Got CHEST_INVENTORY");
             ArrayList<Integer> intArray = new ArrayList<Integer>(14);
             for (int i = 0; i < intArray.size() ; i++) {
                 intArray.add(i);
             }
             Collections.shuffle(intArray);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Shuffled");
             Random random = new Random();
+            int integ = random.nextInt(15);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
             for(int i : intArray) {
-                int integ = random.nextInt(15);
                 switch (integ) {
                     case 1:
                         inv.setItem(i, new ItemStack(Material.LOG, 32));
