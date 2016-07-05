@@ -154,6 +154,10 @@ public class GameManager {
     }
 
     public void testPreInit(boolean forced) {
+        if(Bukkit.getOnlinePlayers().size() < 2) {
+            Bukkit.broadcastMessage(ChatColor.RED + "Cannot start game: Not enough players!");
+            return;
+        }
         Bukkit.broadcastMessage(ChatColor.GREEN + "20 seconds until start!");
         if(!forced) {
             return;

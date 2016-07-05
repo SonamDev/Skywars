@@ -34,11 +34,11 @@ public class GameListeners implements Listener {
     public void onMine(BlockBreakEvent e) {
         switch (e.getBlock().getType()) {
             case IRON_ORE:
-                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.IRON_INGOT));
+                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.IRON_INGOT, 2));
                 e.getBlock().setType(Material.AIR);
                 break;
             case GOLD_ORE:
-                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GOLD_INGOT));
+                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(Material.GOLD_INGOT, 2));
                 e.getBlock().setType(Material.AIR);
                 break;
         }
