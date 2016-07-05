@@ -105,11 +105,11 @@ public class GameManager {
 
         try {
             Thread.sleep(1500);
+            Bukkit.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Bukkit.shutdown();
     }
 
     public void startCountdown(boolean forced) {
