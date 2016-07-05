@@ -1,5 +1,7 @@
 package io.Sonam.Game;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import io.Sonam.Game.Commands.CheckState;
 import io.Sonam.Game.Commands.Restart;
 import io.Sonam.Game.Commands.StartGame;
@@ -13,7 +15,10 @@ import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -30,6 +35,8 @@ public class SkyWars extends JavaPlugin {
     private static ArrayList<UUID> spectators = new ArrayList<UUID>();
     public static boolean debug;
     public static boolean gameRunning;
+    private static CuboidSelection map;
+    public World world = Bukkit.getWorld(GameManager.GAME_WORLD);
 
     public void onEnable() {
         Utils.loadMap(GameManager.GAME_WORLD);
@@ -42,6 +49,7 @@ public class SkyWars extends JavaPlugin {
         debug = true;
         gameRunning = true;
         gameManager = new GameManager();
+        map = new CuboidSelection(world, new Location(world, 364.5, 18, -225.5), new Location(world, 111.0, 113.0, -449.0));
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
@@ -59,6 +67,12 @@ public class SkyWars extends JavaPlugin {
             }
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
+    }
+
+    public WorldEditPlugin getWorldEdit() {
+        Plugin p = getServer().getPluginManager().getPlugin("WorldEdit");
+        if(p instanceof WorldEditPlugin) return (WorldEditPlugin) p;
+        else return null;
     }
 
     public void onDisable() {
@@ -83,5 +97,9 @@ public class SkyWars extends JavaPlugin {
 
     public static ArrayList<UUID> getSpectators() {
         return spectators;
+    }
+
+    public static CuboidSelection getMap() {
+        return map;
     }
 }

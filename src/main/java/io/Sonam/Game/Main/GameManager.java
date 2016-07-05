@@ -13,6 +13,7 @@ import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -82,6 +83,7 @@ public class GameManager {
             KitSelectorItems.giveDefault(target);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
+            player.setGameMode(GameMode.SURVIVAL);
             player.setMaxHealth(40.0);
             player.setHealth(40.0);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100000, 3, false, false));
