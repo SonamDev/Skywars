@@ -56,7 +56,7 @@ public class GameListeners implements Listener {
                 e.setCancelled(true);
                 player.setAllowFlight(true);
                 player.setFlying(true);
-                Bukkit.getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
+                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 for(Player p : Bukkit.getOnlinePlayers()) {
                     if(!SkyWars.getSpectators().contains(p.getUniqueId())) {
@@ -92,7 +92,7 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onDeath(GamePlayerDeathEvent e) {
-
+        Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called");
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
             Bukkit.broadcastMessage("");
             Bukkit.broadcastMessage(ChatColor.GREEN + "%%gameWinner%% won the game!");
