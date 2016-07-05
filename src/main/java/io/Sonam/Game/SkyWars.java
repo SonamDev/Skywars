@@ -56,7 +56,9 @@ public class SkyWars extends JavaPlugin {
         getCommand("cstate").setExecutor(new CheckState());
         getCommand("forcestart").setExecutor(new StartGame());
         getCommand("restarts").setExecutor(new Restart());
-
+        world = Bukkit.getWorld(GameManager.GAME_WORLD);
+        map = new CuboidSelection(world, new Location(world, 364.5, 18, -225.5), new Location(world, 111.0, 113.0, -449.0));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
         gameManager.setGameState(GameState.PRE_GAME);
         gameManager.setMaxPlayers(12);
         if(Bukkit.getOnlinePlayers().size() != 0) {
@@ -64,9 +66,6 @@ public class SkyWars extends JavaPlugin {
                 players.add(player.getUniqueId());
             }
         }
-        world = Bukkit.getWorld(GameManager.GAME_WORLD);
-        map = new CuboidSelection(world, new Location(world, 364.5, 18, -225.5), new Location(world, 111.0, 113.0, -449.0));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
         setChestLocations();
     }
 
@@ -91,7 +90,11 @@ public class SkyWars extends JavaPlugin {
                 }
             }
         }
-        chestFiller.randomizeChests();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            public void run() {
+                chestFiller.randomizeChests();
+            }
+        }, 40L);
     }
 
     public void onDisable() {
