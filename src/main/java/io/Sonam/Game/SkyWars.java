@@ -29,6 +29,7 @@ public class SkyWars extends JavaPlugin {
     private static ArrayList<UUID> players = new ArrayList<UUID>();
     private static ArrayList<UUID> spectators = new ArrayList<UUID>();
     public static boolean debug;
+    public static boolean gameRunning;
 
     public void onEnable() {
         Utils.loadMap("2k");
@@ -39,6 +40,7 @@ public class SkyWars extends JavaPlugin {
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;
+        gameRunning = true;
         gameManager = new GameManager();
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);

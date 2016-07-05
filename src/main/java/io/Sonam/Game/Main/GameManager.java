@@ -96,6 +96,8 @@ public class GameManager {
             player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
         }
 
+        SkyWars.getGameManager().setGameState(GameState.REBOOTING);
+
         try {
             Thread.sleep(1000);
             Utils.unloadMap("2k");

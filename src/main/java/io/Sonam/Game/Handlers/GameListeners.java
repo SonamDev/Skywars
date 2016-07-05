@@ -81,6 +81,7 @@ public class GameListeners implements Listener {
                 KitSelectorItems.clearAll(player);
                 player.getInventory().setItem(8, items.getLeaveGame());
                 player.getInventory().setItem(0, items.getSpectatorMenu());
+                player.setMaxHealth(20.0);
                 player.setHealth(20.0);
                 player.setFoodLevel(20);
                 return;
@@ -102,6 +103,7 @@ public class GameListeners implements Listener {
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + winner + " won the game!");
                     Bukkit.broadcastMessage("");
+                    SkyWars.gameRunning = false;
                 }
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
@@ -114,6 +116,9 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e) {
+        if(!SkyWars.gameRunning) {
+            e.setCancelled(true);
+        }
         if(e.getDamager().getType().equals(EntityType.PLAYER)) {
             Player player = (Player) e.getDamager();
             if(SkyWars.getSpectators().contains(player.getUniqueId())) {
