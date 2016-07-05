@@ -3,6 +3,7 @@ package io.Sonam.Game.Main;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
+import io.Sonam.Game.Menu.Kit;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Threads.Countdown;
 import io.Sonam.Game.Threads.SGCountdown;
@@ -41,6 +42,7 @@ public class GameManager {
             new Location(Bukkit.getWorld(GAME_WORLD), 223.5, 44.0, -427.5, 0, 0),
             new Location(Bukkit.getWorld(GAME_WORLD), 239.5, 44.0, -410.5, 90, 0),
     };
+    private Kit kit = new Kit();
 
     public int getMaxPlayers() {
         return maxPlayers;
@@ -81,14 +83,40 @@ public class GameManager {
         for(int i = 0; i < plamount ; i++) {
             Player target = Bukkit.getPlayer(SkyWars.getPlayers().get(i));
             target.teleport(locations[i]);
-            KitSelectorItems.giveDefault(target);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.setMaxHealth(40.0);
             player.setHealth(40.0);
             player.setGameMode(GameMode.SURVIVAL);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100000, 15, false, false));
+            switch (Utils.getSelectedKit(player)) {
+                case CHAMPION:
+                    kit.giveChampionKit(player, false);
+                    break;
+                case ARCHER:
+                    kit.giveArcherKit(player, false);
+                    break;
+                case KNIGHT:
+                    kit.giveKnightKit(player, false);
+                    break;
+                case CHEMIST:
+                    kit.giveChemistKit(player, false);
+                    break;
+                case PYRO:
+                    kit.givePyroKit(player, false);
+                    break;
+                case ARMORER:
+                    kit.giveArmorerKit(player, false);
+                    break;
+                case SCOUT:
+                    kit.giveScoutKit(player, false);
+                    break;
+                default:
+                    KitSelectorItems.giveDefault(player);
+                    break;
+            }
         }
+
     }
 
     public void endGame() {

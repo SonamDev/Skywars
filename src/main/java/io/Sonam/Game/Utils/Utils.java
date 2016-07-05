@@ -66,4 +66,8 @@ public class Utils {
 
     }
 
+    public static Kits getSelectedKit(Player player) {
+        return SkyWars.getKitSelected().get(player.getUniqueId());
+    }
+
 }
