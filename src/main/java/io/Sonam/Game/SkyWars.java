@@ -71,6 +71,7 @@ public class SkyWars extends JavaPlugin {
                 setChestLocations();
             }
         }, 30L);
+        chestFiller = new ChestFiller();
         setChestLocations();
     }
 
