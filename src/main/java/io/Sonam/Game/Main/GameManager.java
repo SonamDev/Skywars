@@ -89,6 +89,7 @@ public class GameManager {
             player.setHealth(40.0);
             player.setGameMode(GameMode.SURVIVAL);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100000, 15, false, false));
+            player.getInventory().clear();
             switch (Utils.getSelectedKit(player)) {
                 case CHAMPION:
                     kit.giveChampionKit(player, false);
