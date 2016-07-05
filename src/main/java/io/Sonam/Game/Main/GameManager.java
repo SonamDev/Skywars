@@ -100,7 +100,7 @@ public class GameManager {
 
         try {
             Thread.sleep(1000);
-            Utils.unloadMap("2k");
+            Utils.rollback("2k");
             Thread.sleep(1000);
             Bukkit.shutdown();
         } catch (Exception e) {

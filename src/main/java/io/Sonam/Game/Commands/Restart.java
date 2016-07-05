@@ -3,6 +3,7 @@ package io.Sonam.Game.Commands;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import io.Sonam.Game.SkyWars;
+import io.Sonam.Game.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,8 @@ public class Restart implements CommandExecutor {
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
         }
+
+        Utils.rollback("2k");
 
         try {
             Thread.sleep(1000);
