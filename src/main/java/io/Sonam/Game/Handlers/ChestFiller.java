@@ -1,6 +1,8 @@
 package io.Sonam.Game.Handlers;
 
 import io.Sonam.Game.SkyWars;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -16,6 +18,7 @@ public class ChestFiller {
 
     public void randomizeChests() {
         for(Location loc : SkyWars.getChests()) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Filling chests...");
             Chest chest = (Chest) loc.getBlock().getState();
             Inventory inv = chest.getBlockInventory();
             ArrayList<Integer> intArray = new ArrayList<Integer>(14);
