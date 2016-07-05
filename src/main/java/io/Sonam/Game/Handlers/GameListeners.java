@@ -53,6 +53,7 @@ public class GameListeners implements Listener {
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             Player player = (Player) e.getEntity();
             if(player.getHealth() - e.getDamage() < 0.1) {
+                SkyWars.getSpectators().add(player.getUniqueId());
                 e.setCancelled(true);
                 player.setAllowFlight(true);
                 player.setFlying(true);
@@ -70,7 +71,6 @@ public class GameListeners implements Listener {
                 }
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
-                SkyWars.getSpectators().add(player.getUniqueId());
                 Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
                 Location[] locations = SkyWars.getGameManager().getLocations();
                 Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
@@ -92,7 +92,7 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onDeath(GamePlayerDeathEvent e) {
-        Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called");
+        Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called > " + SkyWars.getSpectators().size() + " >> " + Bukkit.getOnlinePlayers().size());
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
             Bukkit.broadcastMessage("");
             Bukkit.broadcastMessage(ChatColor.GREEN + "%%gameWinner%% won the game!");
