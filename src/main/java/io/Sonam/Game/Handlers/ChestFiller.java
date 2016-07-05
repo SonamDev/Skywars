@@ -34,6 +34,7 @@ public class ChestFiller {
             int integ = random.nextInt(15);
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
             for(int i : intArray) {
+                Bukkit.broadcastMessage(i + "");
                 switch (integ) {
                     case 1:
                         inv.setItem(i, new ItemStack(Material.LOG, 32));
