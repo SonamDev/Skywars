@@ -22,6 +22,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.UUID;
+
 public class GameListeners implements Listener {
 
     MainItems items = new MainItems();
@@ -62,6 +64,9 @@ public class GameListeners implements Listener {
                         p.showPlayer(player);
                     }
                 }
+                for(UUID uuid : SkyWars.getSpectators()) {
+                    player.showPlayer(Bukkit.getPlayer(uuid));
+                }
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
                 SkyWars.getSpectators().add(player.getUniqueId());
@@ -74,6 +79,8 @@ public class GameListeners implements Listener {
                 KitSelectorItems.clearAll(player);
                 player.getInventory().setItem(8, items.getLeaveGame());
                 player.getInventory().setItem(0, items.getSpectatorMenu());
+                player.setHealth(20.0);
+                player.setFoodLevel(20);
                 return;
             }
             if(SkyWars.getSpectators().contains(player.getUniqueId())) {

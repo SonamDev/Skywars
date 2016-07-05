@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -98,6 +99,10 @@ public class PreInit implements Listener {
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             if(SkyWars.getGameManager().getGameState().equals(GameState.PRE_GAME)) {
                 e.setCancelled(true);
+                return;
+            }
+            if(SkyWars.getSpectators().contains(e.getEntity().getUniqueId())) {
+                e.setCancelled(true);
             }
         }
     }
@@ -106,6 +111,11 @@ public class PreInit implements Listener {
     public void onHunger(FoodLevelChangeEvent e) {
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             if(SkyWars.getGameManager().getGameState().equals(GameState.PRE_GAME)) {
+                e.setCancelled(true);
+                return;
+            }
+            Player player = (Player) e.getEntity();
+            if(SkyWars.getSpectators().contains(player.getUniqueId())) {
                 e.setCancelled(true);
             }
         }

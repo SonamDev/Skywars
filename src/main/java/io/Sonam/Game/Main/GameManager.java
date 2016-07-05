@@ -13,6 +13,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Collections;
 
@@ -67,6 +69,11 @@ public class GameManager {
             Player target = Bukkit.getPlayer(SkyWars.getPlayers().get(i));
             target.teleport(locations[i]);
             KitSelectorItems.giveDefault(target);
+        }
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.setMaxHealth(40.0);
+            player.setHealth(40.0);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100000, 3, false, false));
         }
     }
 
