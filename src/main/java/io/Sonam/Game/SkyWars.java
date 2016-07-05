@@ -6,10 +6,7 @@ import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import io.Sonam.Game.Commands.CheckState;
 import io.Sonam.Game.Commands.Restart;
 import io.Sonam.Game.Commands.StartGame;
-import io.Sonam.Game.Handlers.GameListeners;
-import io.Sonam.Game.Handlers.ItemListeners;
-import io.Sonam.Game.Handlers.PluginListener;
-import io.Sonam.Game.Handlers.PreInit;
+import io.Sonam.Game.Handlers.*;
 import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
@@ -37,6 +34,7 @@ public class SkyWars extends JavaPlugin {
     public static boolean gameRunning;
     private static CuboidSelection map;
     private static HashSet<Block> chests = new HashSet<Block>();
+    private ChestFiller chestFiller;
     public World world;
 
     public void onEnable() {
@@ -69,6 +67,7 @@ public class SkyWars extends JavaPlugin {
         world = Bukkit.getWorld(GameManager.GAME_WORLD);
         map = new CuboidSelection(world, new Location(world, 364.5, 18, -225.5), new Location(world, 111.0, 113.0, -449.0));
         Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
+        setChestLocations();
     }
 
     public WorldEditPlugin getWorldEdit() {
@@ -92,6 +91,7 @@ public class SkyWars extends JavaPlugin {
                 }
             }
         }
+        chestFiller.randomizeChests();
     }
 
     public void onDisable() {
@@ -120,5 +120,9 @@ public class SkyWars extends JavaPlugin {
 
     public static CuboidSelection getMap() {
         return map;
+    }
+
+    public static HashSet<Block> getChests() {
+        return chests;
     }
 }
