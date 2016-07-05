@@ -17,6 +17,8 @@ import java.util.Random;
 public class ChestFiller {
 
     public void randomizeChests() {
+        Random random = new Random();
+        int integ = random.nextInt(15);
         int number = 0;
         for(Location loc : SkyWars.getChests()) {
             number++;
@@ -24,14 +26,12 @@ public class ChestFiller {
             Chest chest = (Chest) loc.getBlock().getState();
             Inventory inv = chest.getInventory();
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Got CHEST_INVENTORY");
-            ArrayList<Integer> intArray = new ArrayList<Integer>(14);
-            for (int i = 0; i < intArray.size() ; i++) {
+            ArrayList<Integer> intArray = new ArrayList<Integer>();
+            for (int i = 0; i < 27 ; i++) {
                 intArray.add(i);
             }
             Collections.shuffle(intArray);
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Shuffled");
-            Random random = new Random();
-            int integ = random.nextInt(15);
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
             for(int i : intArray) {
                 Bukkit.broadcastMessage(i + "");
