@@ -1,6 +1,7 @@
 package io.Sonam.Game.Handlers;
 
 import io.Sonam.Game.SkyWars;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -16,6 +17,7 @@ public class ChestFiller {
 
     public void randomizeChests() {
         for(Location location : SkyWars.getChests()) {
+            Bukkit.broadcastMessage("CHEST FOUND");
             Chest chest = (Chest) location.getBlock().getState();
             Inventory inventory = chest.getInventory();
             ArrayList<Integer> intArray = new ArrayList<Integer>(14);
