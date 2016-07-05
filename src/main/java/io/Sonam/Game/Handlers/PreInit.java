@@ -42,6 +42,7 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        e.setJoinMessage("");
         SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
         SkyWars.getKitSelected().put(e.getPlayer().getUniqueId(), Kits.DEFAULT);
         e.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
@@ -78,6 +79,7 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent e) {
+        e.setQuitMessage("");
         SkyWars.getPlayers().remove(e.getPlayer().getUniqueId());
         int ez = Bukkit.getOnlinePlayers().size() - 1;
         switch (SkyWars.getGameManager().getGameState()) {
@@ -88,6 +90,10 @@ public class PreInit implements Listener {
                 Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " logged out. ");
                 break;
             case IN_GAME:
+                if(SkyWars.getSpectators().contains(e.getPlayer().getUniqueId())) {
+                    SkyWars.getSpectators().remove(e.getPlayer().getUniqueId());
+                    return;
+                }
                 Bukkit.broadcastMessage(ChatColor.YELLOW + e.getPlayer().getName() + " logged out. ");
                 break;
         }
