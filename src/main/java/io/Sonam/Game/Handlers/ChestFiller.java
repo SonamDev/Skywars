@@ -34,13 +34,13 @@ public class ChestFiller {
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
             for(int i : intArray) {
                 Bukkit.broadcastMessage(i + "");
-                int integ = random.nextInt(15);
+                int integ = random.nextInt(11);
                 Bukkit.broadcastMessage(ChatColor.YELLOW + "RND: " + integ);
                 switch (integ) {
                     case 1:
                         inv.setItem(i, new ItemStack(Material.LOG, 32));
                         Bukkit.getLogger().info("Filled with log " + number);
-                    case 14:
+                    case 9:
                         inv.setItem(i, new ItemStack(Material.GOLDEN_APPLE));
                         Bukkit.getLogger().info("Filled with gapple " + number);
                     case 3:
