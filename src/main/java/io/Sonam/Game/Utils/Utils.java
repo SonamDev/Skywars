@@ -55,7 +55,8 @@ public class Utils {
     }
 
     //Maprollback method, because were too lazy to type 2 lines
-    public static void rollback(final String mapname){
+    public static void rollback(final
+                                String mapname){
         unloadMap(mapname);
         Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
             public void run() {

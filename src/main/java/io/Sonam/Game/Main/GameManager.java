@@ -88,23 +88,27 @@ public class GameManager {
     }
 
     public void endGame() {
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("Connect");
-        out.writeUTF("dev1a");
+        boolean canStop;
+        try {
+            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            out.writeUTF("Connect");
+            out.writeUTF("dev1a");
 
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
+            for(Player player : Bukkit.getOnlinePlayers()) {
+                player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
+            }
+
+            SkyWars.getGameManager().setGameState(GameState.REBOOTING);
+        } finally {
+            Utils.rollback("2k");
+            Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
+                public void run() {
+                    Bukkit.shutdown();
+                }
+            }, 120L);
         }
 
-        SkyWars.getGameManager().setGameState(GameState.REBOOTING);
 
-        Utils.rollback("2k");
-
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
-            public void run() {
-                Bukkit.shutdown();
-            }
-        }, 120L);
 
     }
 
