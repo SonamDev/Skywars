@@ -36,7 +36,7 @@ public class SkyWars extends JavaPlugin {
     public static boolean debug;
     public static boolean gameRunning;
     private static CuboidSelection map;
-    public World world = Bukkit.getWorld(GameManager.GAME_WORLD);
+    public World world;
 
     public void onEnable() {
         Utils.loadMap(GameManager.GAME_WORLD);
@@ -49,7 +49,6 @@ public class SkyWars extends JavaPlugin {
         debug = true;
         gameRunning = true;
         gameManager = new GameManager();
-        map = new CuboidSelection(world, new Location(world, 364.5, 18, -225.5), new Location(world, 111.0, 113.0, -449.0));
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
@@ -66,6 +65,8 @@ public class SkyWars extends JavaPlugin {
                 players.add(player.getUniqueId());
             }
         }
+        world = Bukkit.getWorld(GameManager.GAME_WORLD);
+        map = new CuboidSelection(world, new Location(world, 364.5, 18, -225.5), new Location(world, 111.0, 113.0, -449.0));
         Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server Booted! GameState: PRE_GAME");
     }
 
