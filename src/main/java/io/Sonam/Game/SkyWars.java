@@ -29,7 +29,7 @@ public class SkyWars extends JavaPlugin {
     private static HashMap<UUID, Kits> kitSelected = new HashMap<UUID, Kits>();
     private static ArrayList<UUID> players = new ArrayList<UUID>();
     private static ArrayList<UUID> spectators = new ArrayList<UUID>();
-    public static boolean debug;
+    public static boolean debug = false;
     public static boolean gameRunning;
     private static CuboidSelection map;
     private static HashSet<Location> chests = new HashSet<Location>();
@@ -45,7 +45,6 @@ public class SkyWars extends JavaPlugin {
         Bukkit.getWorld(GameManager.GAME_WORLD).setAnimalSpawnLimit(0);
         plugin = this;
         pluginListener = new PluginListener();
-        debug = true;
         gameRunning = true;
         gameManager = new GameManager();
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
