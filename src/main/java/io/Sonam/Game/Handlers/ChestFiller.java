@@ -1,6 +1,7 @@
 package io.Sonam.Game.Handlers;
 
 import io.Sonam.Game.SkyWars;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
@@ -14,8 +15,9 @@ import java.util.Random;
 public class ChestFiller {
 
     public void randomizeChests() {
-        for(Chest chest: SkyWars.getChests()) {
-            Inventory inventory = chest.getInventory();
+        for(Location loc : SkyWars.getChests()) {
+            Chest chest = (Chest) loc.getBlock().getState();
+            Inventory inv = chest.getBlockInventory();
             ArrayList<Integer> intArray = new ArrayList<Integer>(14);
             for (int i = 0; i < intArray.size() ; i++) {
                 intArray.add(i);
@@ -26,27 +28,27 @@ public class ChestFiller {
                 int integ = random.nextInt(15);
                 switch (integ) {
                     case 1:
-                        inventory.setItem(i, new ItemStack(Material.LOG, 32));
+                        inv.setItem(i, new ItemStack(Material.LOG, 32));
                         break;
                     case 14:
-                        inventory.setItem(i, new ItemStack(Material.GOLDEN_APPLE));
+                        inv.setItem(i, new ItemStack(Material.GOLDEN_APPLE));
                         break;
                     case 3:
-                        inventory.setItem(i, new ItemStack(Material.DIAMOND_PICKAXE));
+                        inv.setItem(i, new ItemStack(Material.DIAMOND_PICKAXE));
                         break;
                     case 4:
-                        inventory.setItem(i, new ItemStack(Material.IRON_AXE));
+                        inv.setItem(i, new ItemStack(Material.IRON_AXE));
                         break;
                     case 5:
-                        inventory.setItem(i, new ItemStack(Material.STONE, 64));
+                        inv.setItem(i, new ItemStack(Material.STONE, 64));
                         break;
                     case 6:
                         ItemStack sword = new ItemStack(Material.STONE_SWORD);
                         sword.addEnchantment(Enchantment.DAMAGE_ALL, 1);
-                        inventory.setItem(i, sword);
+                        inv.setItem(i, sword);
                         break;
                     case 7:
-                        inventory.setItem(i, new ItemStack(Material.COOKED_BEEF, 32));
+                        inv.setItem(i, new ItemStack(Material.COOKED_BEEF, 32));
                         break;
                 }
             }
