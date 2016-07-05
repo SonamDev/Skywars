@@ -1,8 +1,8 @@
 package io.Sonam.Game.Handlers;
 
 import io.Sonam.Game.SkyWars;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
@@ -15,8 +15,8 @@ import java.util.Random;
 public class ChestFiller {
 
     public void randomizeChests() {
-        for(Block block : SkyWars.getChests()) {
-            Chest chest = (Chest) block.getState();
+        for(Location location : SkyWars.getChests()) {
+            Chest chest = (Chest) location.getBlock().getState();
             Inventory inventory = chest.getInventory();
             ArrayList<Integer> intArray = new ArrayList<Integer>(14);
             for (int i = 0; i < intArray.size() ; i++) {

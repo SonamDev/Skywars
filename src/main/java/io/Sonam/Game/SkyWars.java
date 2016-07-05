@@ -12,7 +12,6 @@ import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
 import org.bukkit.*;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,7 +32,7 @@ public class SkyWars extends JavaPlugin {
     public static boolean debug;
     public static boolean gameRunning;
     private static CuboidSelection map;
-    private static HashSet<Block> chests = new HashSet<Block>();
+    private static HashSet<Location> chests = new HashSet<Location>();
     private ChestFiller chestFiller;
     public World world;
 
@@ -85,7 +84,7 @@ public class SkyWars extends JavaPlugin {
                     Location tmpblock = new Location(world, x, y, z);
                     if(tmpblock.getBlock().getType().equals(Material.CHEST)) {
                         Bukkit.broadcastMessage(ChatColor.YELLOW + tmpblock.toString());
-                        chests.add(tmpblock.getBlock());
+                        chests.add(tmpblock);
                     }
                 }
             }
@@ -125,7 +124,7 @@ public class SkyWars extends JavaPlugin {
         return map;
     }
 
-    public static HashSet<Block> getChests() {
+    public static HashSet<Location> getChests() {
         return chests;
     }
 }
