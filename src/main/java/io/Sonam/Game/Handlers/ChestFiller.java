@@ -18,7 +18,6 @@ public class ChestFiller {
 
     public void randomizeChests() {
         Random random = new Random();
-        int integ = random.nextInt(15);
         int number = 0;
         for(Location loc : SkyWars.getChests()) {
             number++;
@@ -35,6 +34,8 @@ public class ChestFiller {
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
             for(int i : intArray) {
                 Bukkit.broadcastMessage(i + "");
+                int integ = random.nextInt(15);
+                Bukkit.broadcastMessage(ChatColor.YELLOW + "RND: " + integ);
                 switch (integ) {
                     case 1:
                         inv.setItem(i, new ItemStack(Material.LOG, 32));
