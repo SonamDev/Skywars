@@ -100,12 +100,16 @@ public class GameManager {
 
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
         } finally {
-            Utils.rollback("2k");
+            Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
+                public void run() {
+                    Utils.rollback("2k");
+                }
+            }, 60L);
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
                     Bukkit.shutdown();
                 }
-            }, 120L);
+            }, 220L);
         }
 
 
