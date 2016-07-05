@@ -32,11 +32,11 @@ public class SkyWars extends JavaPlugin {
     public static boolean gameRunning;
 
     public void onEnable() {
-        Utils.loadMap("2k");
-        Bukkit.getWorld("2k").setAutoSave(false);
-        Bukkit.getWorld("2k").setMonsterSpawnLimit(0);
-        Bukkit.getWorld("2k").setWaterAnimalSpawnLimit(0);
-        Bukkit.getWorld("2k").setAnimalSpawnLimit(0);
+        Utils.loadMap(GameManager.GAME_WORLD);
+        Bukkit.getWorld(GameManager.GAME_WORLD).setAutoSave(false);
+        Bukkit.getWorld(GameManager.GAME_WORLD).setMonsterSpawnLimit(0);
+        Bukkit.getWorld(GameManager.GAME_WORLD).setWaterAnimalSpawnLimit(0);
+        Bukkit.getWorld(GameManager.GAME_WORLD).setAnimalSpawnLimit(0);
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;

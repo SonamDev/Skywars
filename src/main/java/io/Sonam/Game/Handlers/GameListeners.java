@@ -4,6 +4,7 @@ import io.Sonam.Game.Events.GamePlayerDeathEvent;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
+import io.Sonam.Game.Utils.GameState;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
@@ -110,13 +111,13 @@ public class GameListeners implements Listener {
                 public void run() {
                     SkyWars.getGameManager().endGame();
                 }
-            }, 120L);
+            }, 80L);
         }
     }
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e) {
-        if(!SkyWars.gameRunning) {
+        if(!SkyWars.gameRunning || SkyWars.getGameManager().getGameState().equals(GameState.PRE_GAME)) {
             e.setCancelled(true);
         }
         if(e.getDamager().getType().equals(EntityType.PLAYER)) {

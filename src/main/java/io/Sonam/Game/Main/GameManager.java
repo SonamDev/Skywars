@@ -25,19 +25,20 @@ public class GameManager {
 
     private int maxPlayers;
     private GameState gameState;
+    public static String GAME_WORLD = "2k";
     private Location[] locations = {
-            new Location(Bukkit.getWorld("2k"), 306.5, 44.0, -345.5, 0, 0),
-            new Location(Bukkit.getWorld("2k"), 323.5, 44.0, -328.5, 90, 0),
-            new Location(Bukkit.getWorld("2k"), 306.5, 44.0, -312.5, 180, 0),
-            new Location(Bukkit.getWorld("2k"), 239.5, 44.0, -246.5, 0, 0),
-            new Location(Bukkit.getWorld("2k"), 223.5, 44.0, -229.5, 180, 0),
-            new Location(Bukkit.getWorld("2k"), 207.5, 44.0, -246.5, 90, 0),
-            new Location(Bukkit.getWorld("2k"), 141.5, 44.0, -315.5, 180, 0),
-            new Location(Bukkit.getWorld("2k"), 124.5, 44.0, -330.5, 90, 0),
-            new Location(Bukkit.getWorld("2k"), 141.5, 44.0, -346.5, 180, 0),
-            new Location(Bukkit.getWorld("2k"), 207.5, 44.0, -410.5, 90, 0),
-            new Location(Bukkit.getWorld("2k"), 223.5, 44.0, -427.5, 0, 0),
-            new Location(Bukkit.getWorld("2k"), 239.5, 44.0, -410.5, 90, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 306.5, 44.0, -345.5, 0, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 323.5, 44.0, -328.5, 90, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 306.5, 44.0, -312.5, 180, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 239.5, 44.0, -246.5, 0, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 223.5, 44.0, -229.5, 180, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 207.5, 44.0, -246.5, 90, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 141.5, 44.0, -315.5, 180, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 124.5, 44.0, -330.5, 90, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 141.5, 44.0, -346.5, 180, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 207.5, 44.0, -410.5, 90, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 223.5, 44.0, -427.5, 0, 0),
+            new Location(Bukkit.getWorld(GAME_WORLD), 239.5, 44.0, -410.5, 90, 0),
     };
 
     public int getMaxPlayers() {
@@ -102,7 +103,7 @@ public class GameManager {
         } finally {
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
-                    Utils.rollback("2k");
+                    Utils.rollback(GAME_WORLD);
                 }
             }, 60L);
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {

@@ -1,5 +1,6 @@
 package io.Sonam.Game.Handlers;
 
+import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
@@ -9,6 +10,7 @@ import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
@@ -42,12 +44,13 @@ public class PreInit implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        e.getPlayer().setGameMode(GameMode.ADVENTURE);
         e.setJoinMessage("");
         SkyWars.getPlayers().add(e.getPlayer().getUniqueId());
         SkyWars.getKitSelected().put(e.getPlayer().getUniqueId(), Kits.DEFAULT);
         e.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
         KitSelectorItems.clearAll(e.getPlayer());
-        e.getPlayer().teleport(new Location(Bukkit.getWorld("2k"), 397.5, 8.0, -349.5, 0F, 0F));
+        e.getPlayer().teleport(new Location(Bukkit.getWorld(GameManager.GAME_WORLD), 397.5, 8.0, -349.5, 0F, 0F));
         e.getPlayer().setMaxHealth(20.0);
         e.getPlayer().setHealth(20.0);
         e.getPlayer().setFoodLevel(20);
