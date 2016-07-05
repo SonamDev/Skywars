@@ -32,10 +32,10 @@ public class SkyWars extends JavaPlugin {
 
     public void onEnable() {
         Utils.loadMap("2k");
+        Bukkit.getWorld("2k").setAutoSave(false);
         Bukkit.getWorld("2k").setMonsterSpawnLimit(0);
         Bukkit.getWorld("2k").setWaterAnimalSpawnLimit(0);
         Bukkit.getWorld("2k").setAnimalSpawnLimit(0);
-        Bukkit.getWorld("2k").setAutoSave(false);
         plugin = this;
         pluginListener = new PluginListener();
         debug = true;
@@ -62,10 +62,10 @@ public class SkyWars extends JavaPlugin {
     public void onDisable() {
         try {
             Thread.sleep(1000);
+            Utils.unloadMap("2k");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Utils.unloadMap("2k");
     }
 
     public static SkyWars getPlugin() {
