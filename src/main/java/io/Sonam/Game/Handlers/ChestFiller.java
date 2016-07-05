@@ -33,12 +33,9 @@ public class ChestFiller {
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
             ItemStack[] items = new ItemStack[27];
             for(int i = 0; i < items.length; i++) {
-                switch (random.nextInt(87)) {
+                switch (random.nextInt(90)) {
                     case 1:
-                        items[i] = new ItemStack(Material.LOG, 32);
-                        continue;
-                    case 8:
-                        items[i] = new ItemStack(Material.LOG, 32);
+                        items[i] = new ItemStack(Material.LOG, 16);
                         continue;
                     case 2:
                         items[i] = new ItemStack(Material.STONE, 64);

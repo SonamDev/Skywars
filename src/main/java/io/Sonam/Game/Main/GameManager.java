@@ -84,10 +84,10 @@ public class GameManager {
             KitSelectorItems.giveDefault(target);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
-            player.setGameMode(GameMode.SURVIVAL);
             player.setMaxHealth(40.0);
             player.setHealth(40.0);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100000, 3, false, false));
+            player.setGameMode(GameMode.SURVIVAL);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 100000, 15, false, false));
         }
     }
 
