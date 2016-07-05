@@ -1,5 +1,6 @@
 package io.Sonam.Game;
 
+import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import io.Sonam.Game.Commands.CheckState;
@@ -13,16 +14,15 @@ import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
 
 public class SkyWars extends JavaPlugin {
@@ -36,6 +36,7 @@ public class SkyWars extends JavaPlugin {
     public static boolean debug;
     public static boolean gameRunning;
     private static CuboidSelection map;
+    private static HashSet<Block> chests = new HashSet<Block>();
     public World world;
 
     public void onEnable() {
@@ -74,6 +75,23 @@ public class SkyWars extends JavaPlugin {
         Plugin p = getServer().getPluginManager().getPlugin("WorldEdit");
         if(p instanceof WorldEditPlugin) return (WorldEditPlugin) p;
         else return null;
+    }
+
+    public void setChestLocations() {
+        CuboidSelection sel = SkyWars.getMap();
+        Vector min = sel.getNativeMinimumPoint();
+        Vector max = sel.getNativeMaximumPoint();
+        for(int x = min.getBlockX();x <= max.getBlockX(); x=x+1){
+            for(int y = min.getBlockY();y <= max.getBlockY(); y=y+1){
+                for(int z = min.getBlockZ();z <= max.getBlockZ(); z=z+1){
+                    Location tmpblock = new Location(world, x, y, z);
+                    if(tmpblock.getBlock().getType().equals(Material.CHEST)) {
+                        Bukkit.broadcastMessage(ChatColor.YELLOW + tmpblock.toString());
+                        chests.add(tmpblock.getBlock());
+                    }
+                }
+            }
+        }
     }
 
     public void onDisable() {
