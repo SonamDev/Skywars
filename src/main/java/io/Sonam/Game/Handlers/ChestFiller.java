@@ -31,7 +31,35 @@ public class ChestFiller {
             Collections.shuffle(intArray);
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Shuffled");
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Randomizing...");
-            inv.setItem(1, new ItemStack(Material.DIAMOND));
+            ItemStack[] items = new ItemStack[27];
+            for(int i = 0; i < items.length; i++) {
+                switch (random.nextInt(13)) {
+                    case 1:
+                        items[i] = new ItemStack(Material.LOG, 32);
+                        continue;
+                    case 2:
+                        items[i] = new ItemStack(Material.STONE, 64);
+                        continue;
+                    case 3:
+                        items[i] = new ItemStack(Material.STONE_SWORD);
+                        continue;
+                    case 4:
+                        items[i] = new ItemStack(Material.DIAMOND_PICKAXE);
+                        continue;
+                    case 5:
+                        items[i] = new ItemStack(Material.STONE_AXE);
+                        continue;
+                    case 6:
+                        items[i] = new ItemStack(Material.GOLDEN_APPLE);
+                        continue;
+                    case 7:
+                        items[i] = new ItemStack(Material.POTION, 1, (short) 8226);
+                        continue;
+                    default:
+                        items[i] = new ItemStack(Material.AIR);
+                }
+            }
+            inv.setContents(items);
 
         }
     }
