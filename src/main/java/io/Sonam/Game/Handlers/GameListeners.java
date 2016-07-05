@@ -92,7 +92,8 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onDeath(GamePlayerDeathEvent e) {
-        if((SkyWars.getSpectators().size() - 1) == Bukkit.getOnlinePlayers().size()) {
+
+        if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
             Bukkit.broadcastMessage("");
             Bukkit.broadcastMessage(ChatColor.GREEN + "%%gameWinner%% won the game!");
             Bukkit.broadcastMessage("");
