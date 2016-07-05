@@ -96,14 +96,10 @@ public class GameManager {
             player.sendPluginMessage(SkyWars.getPlugin(), "BungeeCord", out.toByteArray());
         }
 
-        while(Bukkit.getOnlinePlayers().size() != 0) {
-            return;
-        }
-
-        Utils.unloadMap("2k");
-
         try {
-            Thread.sleep(1500);
+            Thread.sleep(1000);
+            Utils.unloadMap("2k");
+            Thread.sleep(1000);
             Bukkit.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
