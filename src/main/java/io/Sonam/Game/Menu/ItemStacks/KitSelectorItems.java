@@ -18,6 +18,7 @@ public class KitSelectorItems {
         inv.setItem(1, new ItemStack(Material.STONE_AXE));
         inv.setItem(2, new ItemStack(Material.IRON_PICKAXE));
         inv.setItem(3, new ItemStack(Material.STONE_SPADE));
+        inv.setItem(4, new ItemStack(Material.WOOD, 64));
     }
 
     public static void clearAll(Player player) {
