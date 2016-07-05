@@ -104,7 +104,7 @@ public class GameManager {
             public void run() {
                 Bukkit.shutdown();
             }
-        }, 60L);
+        }, 120L);
 
     }
 
