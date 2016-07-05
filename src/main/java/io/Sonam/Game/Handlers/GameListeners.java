@@ -58,8 +58,6 @@ public class GameListeners implements Listener {
                 e.setCancelled(true);
                 player.setAllowFlight(true);
                 player.setFlying(true);
-                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 for(Player p : Bukkit.getOnlinePlayers()) {
                     if(!SkyWars.getSpectators().contains(p.getUniqueId())) {
                         p.hidePlayer(player);
@@ -70,9 +68,11 @@ public class GameListeners implements Listener {
                 for(UUID uuid : SkyWars.getSpectators()) {
                     player.showPlayer(Bukkit.getPlayer(uuid));
                 }
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
                 Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
+                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 Location[] locations = SkyWars.getGameManager().getLocations();
                 Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
                 loc.setY(loc.getY() + 8.4);
@@ -95,7 +95,6 @@ public class GameListeners implements Listener {
     public void onDeath(GamePlayerDeathEvent e) {
         Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called > " + SkyWars.getSpectators().size() + " >> " + Bukkit.getOnlinePlayers().size());
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
-
             String winner;
             for(Player player : Bukkit.getOnlinePlayers()) {
                 if(!SkyWars.getSpectators().contains(player.getUniqueId())) {

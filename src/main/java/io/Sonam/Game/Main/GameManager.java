@@ -38,7 +38,6 @@ public class GameManager {
             new Location(Bukkit.getWorld("2k"), 207.5, 44.0, -410.5, 90, 0),
             new Location(Bukkit.getWorld("2k"), 223.5, 44.0, -427.5, 0, 0),
             new Location(Bukkit.getWorld("2k"), 239.5, 44.0, -410.5, 90, 0),
-
     };
 
     public int getMaxPlayers() {
