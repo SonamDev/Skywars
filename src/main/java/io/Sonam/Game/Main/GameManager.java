@@ -96,6 +96,7 @@ public class GameManager {
             team.getPlayerNameSet().remove(player.getName());
             team.setPrefix(ChatColor.RED.toString());
             ScoreboardTeam playerTeam = new ScoreboardTeam(test, player.getName());
+            playerTeam.getPlayerNameSet().add(player.getName());
             playerTeam.setPrefix(ChatColor.GREEN.toString());
             ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(team, 0));
             ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(playerTeam, 0));
