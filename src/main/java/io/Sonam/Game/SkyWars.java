@@ -38,6 +38,7 @@ public class SkyWars extends JavaPlugin {
     private static Scoreboard scoreboard;
     public World world;
     public static boolean forced = false;
+    public static HashMap<UUID, Scoreboard> scoreboards = new HashMap<UUID, Scoreboard>();
 
     public void onEnable() {
         Utils.loadMap(GameManager.GAME_WORLD);

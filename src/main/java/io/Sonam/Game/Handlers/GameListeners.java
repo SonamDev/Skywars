@@ -5,8 +5,7 @@ import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Utils.GameState;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -24,6 +23,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class GameListeners implements Listener {
@@ -99,6 +100,21 @@ public class GameListeners implements Listener {
     @EventHandler
     public void onDeath(GamePlayerDeathEvent e) {
         Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called > " + SkyWars.getSpectators().size() + " >> " + Bukkit.getOnlinePlayers().size());
+        Scoreboard board = SkyWars.scoreboards.get(e.getPlayer().getUniqueId());
+        board.createTeam("spec");
+        ScoreboardTeam spec = board.getTeam("spec");
+        board.getTeam(e.getPlayer().getName()).getPlayerNameSet().remove(e.getPlayer().getName());
+        ArrayList<String> test = new ArrayList<String>();
+        for(UUID uuid : SkyWars.getSpectators()) {
+            Player player = Bukkit.getPlayer(uuid);
+            test.add(player.getName());
+            if(!uuid.equals(e.getPlayer().getUniqueId())) {
+                SkyWars.scoreboards.get(uuid).getTeam("spec").getPlayerNameSet().add(e.getPlayer().getName());
+            }
+        }
+        spec.getPlayerNameSet().addAll(test);
+        spec.setPrefix(ChatColor.GRAY.toString());
+        ((CraftPlayer)e.getPlayer()).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(spec, 0));
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
             String winner;
             for(Player player : Bukkit.getOnlinePlayers()) {

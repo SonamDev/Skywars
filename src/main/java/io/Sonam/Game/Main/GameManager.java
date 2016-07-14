@@ -90,16 +90,17 @@ public class GameManager {
             target.teleport(locations[i]);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
-            Scoreboard test = new Scoreboard();
-            ScoreboardTeam team = new ScoreboardTeam(test, "Common");
+            Scoreboard sb = new Scoreboard();
+            SkyWars.scoreboards.put(player.getUniqueId(), sb);
+            ScoreboardTeam team = new ScoreboardTeam(sb, "Common");
             team.getPlayerNameSet().addAll(players);
             team.getPlayerNameSet().remove(player.getName());
             team.setPrefix(ChatColor.RED.toString());
-            ScoreboardTeam playerTeam = new ScoreboardTeam(test, player.getName());
+            ScoreboardTeam playerTeam = new ScoreboardTeam(sb, player.getName());
             playerTeam.getPlayerNameSet().add(player.getName());
             playerTeam.setPrefix(ChatColor.GREEN.toString());
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(team, 0));
             ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(playerTeam, 0));
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(team, 0));
             PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
             JSONObject kit_ = new JSONObject(profile.getPlayerObject().toJSONString()).getJSONObject("gameMeta")
                     .getJSONObject("SKYWARS").getJSONObject("kits");
