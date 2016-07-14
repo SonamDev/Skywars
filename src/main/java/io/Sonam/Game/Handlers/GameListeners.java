@@ -56,8 +56,8 @@ public class GameListeners implements Listener {
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             Player player = (Player) e.getEntity();
             if(player.getHealth() - e.getFinalDamage() < 0.1) {
-                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 SkyWars.getSpectators().add(player.getUniqueId());
+                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 e.setCancelled(true);
                 player.setMaxHealth(20.0);
                 player.setHealth(20.0);
