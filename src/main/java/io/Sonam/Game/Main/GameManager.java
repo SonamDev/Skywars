@@ -92,11 +92,11 @@ public class GameManager {
         for(Player player : Bukkit.getOnlinePlayers()) {
             Scoreboard sb = new Scoreboard();
             SkyWars.scoreboards.put(player.getUniqueId(), sb);
-            ScoreboardTeam team = new ScoreboardTeam(sb, "Common");
+            ScoreboardTeam team = sb.createTeam("Common");
             team.getPlayerNameSet().addAll(players);
             team.getPlayerNameSet().remove(player.getName());
             team.setPrefix(ChatColor.RED.toString());
-            ScoreboardTeam playerTeam = new ScoreboardTeam(sb, player.getName());
+            ScoreboardTeam playerTeam = sb.createTeam(player.getName());
             playerTeam.getPlayerNameSet().add(player.getName());
             playerTeam.setPrefix(ChatColor.GREEN.toString());
             ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(playerTeam, 0));
