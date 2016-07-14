@@ -109,7 +109,10 @@ public class GameListeners implements Listener {
             Player player = Bukkit.getPlayer(uuid);
             test.add(player.getName());
             if(!uuid.equals(e.getPlayer().getUniqueId())) {
-                SkyWars.scoreboards.get(uuid).getTeam("spec").getPlayerNameSet().add(e.getPlayer().getName());
+                ScoreboardTeam specc = SkyWars.scoreboards.get(uuid).getTeam("spec");
+                specc.getPlayerNameSet().add(e.getPlayer().getName());
+                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(specc, 1));
+                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(specc, 0));
             }
         }
         spec.getPlayerNameSet().addAll(test);
