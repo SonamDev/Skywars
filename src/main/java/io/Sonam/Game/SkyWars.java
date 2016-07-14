@@ -11,6 +11,7 @@ import io.Sonam.Game.Main.GameManager;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
+import net.minecraft.server.v1_8_R3.Scoreboard;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -34,6 +35,7 @@ public class SkyWars extends JavaPlugin {
     private static CuboidSelection map;
     private static HashSet<Location> chests = new HashSet<Location>();
     private static ChestFiller chestFiller;
+    private static Scoreboard scoreboard;
     public World world;
     public static boolean forced = false;
 
@@ -47,6 +49,7 @@ public class SkyWars extends JavaPlugin {
         pluginListener = new PluginListener();
         gameRunning = true;
         gameManager = new GameManager();
+        scoreboard = new Scoreboard();
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
@@ -127,4 +130,9 @@ public class SkyWars extends JavaPlugin {
     public static ChestFiller getChestFiller() {
         return chestFiller;
     }
+
+    public static Scoreboard getScoreboard() {
+        return scoreboard;
+    }
+
 }

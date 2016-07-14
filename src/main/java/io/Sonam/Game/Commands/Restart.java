@@ -9,8 +9,11 @@ public class Restart implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
+
+
         SkyWars.getGameManager().endGame();
 
         return false;
     }
+
 }

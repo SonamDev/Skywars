@@ -2,6 +2,7 @@ package io.Sonam.Game.Main;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import io.Sonam.Core;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.Kit;
 import io.Sonam.Game.SkyWars;
@@ -10,8 +11,8 @@ import io.Sonam.Game.Threads.SGCountdown;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import io.Sonam.profiler.PlayerProfile;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -20,8 +21,10 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.json.JSONObject;
 
 import java.util.Collections;
+import java.util.HashSet;
 
 public class GameManager {
 
@@ -43,6 +46,7 @@ public class GameManager {
             new Location(Bukkit.getWorld(GAME_WORLD), 239.5, 44.0, -410.5, 90, 0),
     };
     private Kit kit = new Kit();
+    private HashSet<String> players = new HashSet<String>();
 
     public int getMaxPlayers() {
         return maxPlayers;
@@ -63,6 +67,7 @@ public class GameManager {
     public void startPreGame() {
         SkyWars.getGameManager().setGameState(GameState.STARTING);
         for(Player player : Bukkit.getOnlinePlayers()) {
+            players.add(player.getName());
             Kits kit = SkyWars.getKitSelected().get(player.getUniqueId());
             Bukkit.broadcastMessage(kit.name());
             PacketPlayOutTitle times = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, IChatBaseComponent.ChatSerializer.a(""), 0, 1000000, 0);
@@ -85,6 +90,18 @@ public class GameManager {
             target.teleport(locations[i]);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
+            Scoreboard test = (net.minecraft.server.v1_8_R3.Scoreboard) player.getScoreboard();
+            ScoreboardTeam team = new ScoreboardTeam(test, "Common");
+            team.getPlayerNameSet().addAll(players);
+            team.getPlayerNameSet().remove(player.getName());
+            team.setPrefix(ChatColor.RED.toString());
+            ScoreboardTeam playerTeam = new ScoreboardTeam(test, player.getName());
+            playerTeam.setPrefix(ChatColor.GREEN.toString());
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(team, 0));
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardTeam(playerTeam, 0));
+            PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
+            JSONObject kit_ = new JSONObject(profile.getPlayerObject().toJSONString()).getJSONObject("gameMeta")
+                    .getJSONObject("SKYWARS").getJSONObject("kits");
             player.setMaxHealth(40.0);
             player.setHealth(40.0);
             player.setGameMode(GameMode.SURVIVAL);
@@ -92,25 +109,25 @@ public class GameManager {
             player.getInventory().clear();
             switch (Utils.getSelectedKit(player)) {
                 case CHAMPION:
-                    kit.giveChampionKit(player, false);
+                    kit.giveChampionKit(player, kit_.getJSONObject("champion").getBoolean("prestiged"));
                     break;
                 case ARCHER:
-                    kit.giveArcherKit(player, false);
+                    kit.giveArcherKit(player, kit_.getJSONObject("archer").getBoolean("prestiged"));
                     break;
                 case KNIGHT:
-                    kit.giveKnightKit(player, false);
+                    kit.giveKnightKit(player, kit_.getJSONObject("knight").getBoolean("prestiged"));
                     break;
                 case CHEMIST:
-                    kit.giveChemistKit(player, false);
+                    kit.giveChemistKit(player, kit_.getJSONObject("chemist").getBoolean("prestiged"));
                     break;
                 case PYRO:
-                    kit.givePyroKit(player, false);
+                    kit.givePyroKit(player, kit_.getJSONObject("pyro").getBoolean("prestiged"));
                     break;
                 case ARMORER:
-                    kit.giveArmorerKit(player, false);
+                    kit.giveArmorerKit(player, kit_.getJSONObject("armorer").getBoolean("prestiged"));
                     break;
                 case SCOUT:
-                    kit.giveScoutKit(player, false);
+                    kit.giveScoutKit(player, kit_.getJSONObject("scout").getBoolean("prestiged"));
                     break;
                 default:
                     KitSelectorItems.giveDefault(player);
@@ -144,10 +161,8 @@ public class GameManager {
                 }
             }, 115L);
         }
-
-
-
     }
+
 
     public void startCountdown(boolean forced) {
         new SGCountdown(forced).runTaskTimer(SkyWars.getPlugin(), 0, 20);
