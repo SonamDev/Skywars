@@ -90,7 +90,7 @@ public class GameManager {
             target.teleport(locations[i]);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
-            Scoreboard test = (net.minecraft.server.v1_8_R3.Scoreboard) player.getScoreboard();
+            Scoreboard test = new Scoreboard();
             ScoreboardTeam team = new ScoreboardTeam(test, "Common");
             team.getPlayerNameSet().addAll(players);
             team.getPlayerNameSet().remove(player.getName());
