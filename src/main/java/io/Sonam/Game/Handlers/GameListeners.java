@@ -46,6 +46,7 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageEvent e) {
+        Bukkit.broadcastMessage(ChatColor.YELLOW + e.getCause().name());
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                 "{\'text\':\'You Died!\', \'color\':\'red\'}"
         ), 13, 60, 10);
@@ -54,18 +55,16 @@ public class GameListeners implements Listener {
         ));
         if(e.getEntity().getType().equals(EntityType.PLAYER)) {
             Player player = (Player) e.getEntity();
-            if(player.getHealth() - e.getDamage() < 0.1) {
+            if(player.getHealth() - e.getFinalDamage() < 0.1) {
+                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 SkyWars.getSpectators().add(player.getUniqueId());
                 e.setCancelled(true);
+                player.setMaxHealth(20.0);
+                player.setHealth(20.0);
+                player.setFoodLevel(20);
                 player.setAllowFlight(true);
                 player.setFlying(true);
-                for(Player p : Bukkit.getOnlinePlayers()) {
-                    if(!SkyWars.getSpectators().contains(p.getUniqueId())) {
-                        p.hidePlayer(player);
-                    } else {
-                        p.showPlayer(player);
-                    }
-                }
+                player.damage(0.1);
                 for(UUID uuid : SkyWars.getSpectators()) {
                     player.showPlayer(Bukkit.getPlayer(uuid));
                 }
@@ -73,18 +72,22 @@ public class GameListeners implements Listener {
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
                 Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
-                SkyWars.getPlugin().getServer().getPluginManager().callEvent(new GamePlayerDeathEvent(player));
                 Location[] locations = SkyWars.getGameManager().getLocations();
                 Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
                 loc.setY(loc.getY() + 8.4);
                 player.teleport(loc);
                 player.getInventory().clear();
                 KitSelectorItems.clearAll(player);
+                for(Player p : Bukkit.getOnlinePlayers()) {
+                    if(!SkyWars.getSpectators().contains(p.getUniqueId())) {
+                        p.hidePlayer(player);
+                    } else {
+                        p.showPlayer(player);
+                    }
+                }
                 player.getInventory().setItem(8, items.getLeaveGame());
                 player.getInventory().setItem(0, items.getSpectatorMenu());
-                player.setMaxHealth(20.0);
-                player.setHealth(20.0);
-                player.setFoodLevel(20);
+
                 return;
             }
             if(SkyWars.getSpectators().contains(player.getUniqueId())) {
