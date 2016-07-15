@@ -72,7 +72,29 @@ public class GameListeners implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
-                Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
+                switch (e.getCause()) {
+                    case FALL:
+                        if(((Player) e.getEntity()).getKiller() != null) {
+                            Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was knocked off a cliff by " + ChatColor.RED + player.getKiller().getName());
+                            break;
+                        }
+                        Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " fell off a cliff.");
+                        break;
+                    case VOID:
+                        if(((Player) e.getEntity()).getKiller() != null) {
+                            Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was knocked into the void by " + ChatColor.RED + player.getKiller().getName());
+                            break;
+                        }
+                        Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " fell into the void.");
+                        break;
+                    default:
+                        if(((Player) e.getEntity()).getKiller() != null) {
+                            Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
+                            break;
+                        }
+                        Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " died.");
+                        break;
+                }
                 Location[] locations = SkyWars.getGameManager().getLocations();
                 Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
                 loc.setY(loc.getY() + 8.4);
@@ -139,7 +161,7 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e) {
-        if(!SkyWars.gameRunning || SkyWars.getGameManager().getGameState().equals(GameState.PRE_GAME)) {
+        if(!SkyWars.gameRunning || SkyWars.getGameManager().getGameState().equals(GameState.PRE_GAME) || SkyWars.getGameManager().getGameState().equals(GameState.STARTING)) {
             e.setCancelled(true);
         }
         if(e.getDamager().getType().equals(EntityType.PLAYER)) {

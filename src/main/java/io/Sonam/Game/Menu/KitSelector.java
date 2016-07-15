@@ -13,13 +13,13 @@ import org.json.JSONObject;
 
 public class KitSelector {
 
-    public boolean championUnlocked;
-    public boolean archerUnlocked;
-    public boolean knightUnlocked;
-    public boolean chemistUnlocked;
-    public boolean pyroUnlocked;
-    public boolean armorerUnlocked;
-    public boolean scoutUnlocked;
+    private boolean championUnlocked;
+    private boolean archerUnlocked;
+    private boolean knightUnlocked;
+    private boolean chemistUnlocked;
+    private boolean pyroUnlocked;
+    private boolean armorerUnlocked;
+    private boolean scoutUnlocked;
 
 
     public ItemStack champion(boolean unlocked) {
@@ -27,8 +27,8 @@ public class KitSelector {
         ItemStack item = unlocked ? new ItemStack(Material.STONE_SWORD) : new ItemStack(Material.BARRIER);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(unlocked ? ChatColor.GREEN + "Champion Kit" : ChatColor.RED + "Champion Kit");
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 1, false);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
+        if(unlocked)
+            meta.addEnchant(Enchantment.DAMAGE_ALL, 1, false); meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;
     }
@@ -47,8 +47,8 @@ public class KitSelector {
         ItemStack item = unlocked ? new ItemStack(Material.IRON_SWORD) : new ItemStack(Material.BARRIER);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(unlocked ? ChatColor.GREEN + "Knight Kit" : ChatColor.RED + "Knight Kit");
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 1, false);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
+        if(unlocked)
+            meta.addEnchant(Enchantment.DAMAGE_ALL, 1, false); meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;
     }
