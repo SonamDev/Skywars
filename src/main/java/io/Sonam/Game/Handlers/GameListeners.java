@@ -152,12 +152,12 @@ public class GameListeners implements Listener {
                 if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
                     winner = player.getName();
                     PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
-                    Bukkit.broadcastMessage(ChatColor.YELLOW + "--------------------------------------------");
+                    Bukkit.broadcastMessage(ChatColor.GOLD + "--------------------------------------------");
                     Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD +  "           WINNER");
-                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "       " + profile.getPrefix() + " " + winner));
+                    Bukkit.broadcastMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD +  "                   WINNER");
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner));
                     Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.YELLOW + "--------------------------------------------");
+                    Bukkit.broadcastMessage(ChatColor.GOLD + "--------------------------------------------");
                     SkyWars.getGameManager().setGameState(GameState.REBOOTING);
                     SkyWars.gameRunning = false;
                 }
@@ -167,10 +167,11 @@ public class GameListeners implements Listener {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                                "&e--------------------------------------------\n"
-                                + "&e&lYou Found:\n"
-                                + "&6" + profile.getCoins() + " coins.\n"
-                                + "&e--------------------------------------------"
+                                "&6--------------------------------------------\n"
+                                + " &e&lYou Found\n"
+                                + "\n"
+                                + " &6" + profile.getCoins() + " coins\n"
+                                + "&6--------------------------------------------"
 
                         ));
                     }
