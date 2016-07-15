@@ -8,6 +8,7 @@ import io.Sonam.Game.Commands.Restart;
 import io.Sonam.Game.Commands.StartGame;
 import io.Sonam.Game.Handlers.*;
 import io.Sonam.Game.Main.GameManager;
+import io.Sonam.Game.Stats.GameProfileManager;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Kits;
 import io.Sonam.Game.Utils.Utils;
@@ -28,6 +29,7 @@ public class SkyWars extends JavaPlugin {
     private static GameManager gameManager;
     private PluginListener pluginListener;
     private static HashMap<UUID, Kits> kitSelected = new HashMap<UUID, Kits>();
+    private static GameProfileManager gameProfileManager;
     private static ArrayList<UUID> players = new ArrayList<UUID>();
     private static ArrayList<UUID> spectators = new ArrayList<UUID>();
     public static boolean debug = false;
@@ -51,6 +53,7 @@ public class SkyWars extends JavaPlugin {
         gameRunning = true;
         gameManager = new GameManager();
         scoreboard = new Scoreboard();
+        gameProfileManager = new GameProfileManager();
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginListener);
         getServer().getPluginManager().registerEvents(new PreInit(this), this);
@@ -136,4 +139,7 @@ public class SkyWars extends JavaPlugin {
         return scoreboard;
     }
 
+    public static GameProfileManager getGameProfileManager() {
+        return gameProfileManager;
+    }
 }

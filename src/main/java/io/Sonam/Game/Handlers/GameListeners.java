@@ -1,14 +1,15 @@
 package io.Sonam.Game.Handlers;
 
+import io.Sonam.Core;
 import io.Sonam.Game.Events.GamePlayerDeathEvent;
 import io.Sonam.Game.Menu.ItemStacks.KitSelectorItems;
 import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
+import io.Sonam.Game.Stats.GameProfile;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.profiler.PlayerProfile;
 import net.minecraft.server.v1_8_R3.*;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
@@ -72,6 +73,7 @@ public class GameListeners implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
+                Player killedPlayer = (Player) e.getEntity();
                 switch (e.getCause()) {
                     case FALL:
                         if(((Player) e.getEntity()).getKiller() != null) {
@@ -83,17 +85,22 @@ public class GameListeners implements Listener {
                     case VOID:
                         if(((Player) e.getEntity()).getKiller() != null) {
                             Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was knocked into the void by " + ChatColor.RED + player.getKiller().getName());
+                            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
                             break;
                         }
-                        Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " fell into the void.");
                         break;
                     default:
                         if(((Player) e.getEntity()).getKiller() != null) {
                             Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
+                            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
                             break;
                         }
-                        Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " died.");
                         break;
+                }
+                if(killedPlayer.getKiller() != null) {
+                    SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
+                    killedPlayer.getKiller().playSound(killedPlayer.getKiller().getLocation(), Sound.NOTE_PLING, 1, 1);
+                    killedPlayer.getKiller().sendMessage(ChatColor.GOLD + "+20 coins!");
                 }
                 Location[] locations = SkyWars.getGameManager().getLocations();
                 Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
@@ -145,17 +152,35 @@ public class GameListeners implements Listener {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
                     winner = player.getName();
+                    PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
+                    Bukkit.broadcastMessage(ChatColor.YELLOW + "--------------------------------------------");
                     Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + winner + " won the game!");
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', profile.getPrefix() + " " + winner + ChatColor.YELLOW + " won the game!"));
                     Bukkit.broadcastMessage("");
+                    Bukkit.broadcastMessage(ChatColor.YELLOW + "--------------------------------------------");
+                    SkyWars.getGameManager().setGameState(GameState.REBOOTING);
                     SkyWars.gameRunning = false;
                 }
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
+                    for(Player player : Bukkit.getOnlinePlayers()) {
+                        GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                                "&e--------------------------------------------"
+                                + "&f&lYou Found:"
+                                + "&6" + profile.getCoins() + " coins."
+                                + "&e--------------------------------------------"
+
+                        ));
+                    }
+                }
+            }, 40L);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
+                public void run() {
                     SkyWars.getGameManager().endGame();
                 }
-            }, 80L);
+            }, 160L);
         }
     }
 

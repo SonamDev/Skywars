@@ -90,6 +90,7 @@ public class GameManager {
             target.teleport(locations[i]);
         }
         for(Player player : Bukkit.getOnlinePlayers()) {
+            SkyWars.getGameProfileManager().createGameProfile(player.getUniqueId());
             Scoreboard sb = new Scoreboard();
             SkyWars.scoreboards.put(player.getUniqueId(), sb);
             ScoreboardTeam team = sb.createTeam("zCommon");
