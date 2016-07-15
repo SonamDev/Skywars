@@ -73,7 +73,6 @@ public class GameListeners implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, false, false));
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(resetsubs);
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(title);
-                Player killedPlayer = (Player) e.getEntity();
                 switch (e.getCause()) {
                     case FALL:
                         if(((Player) e.getEntity()).getKiller() != null) {
@@ -85,22 +84,15 @@ public class GameListeners implements Listener {
                     case VOID:
                         if(((Player) e.getEntity()).getKiller() != null) {
                             Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was knocked into the void by " + ChatColor.RED + player.getKiller().getName());
-                            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
                             break;
                         }
                         break;
                     default:
                         if(((Player) e.getEntity()).getKiller() != null) {
                             Bukkit.broadcastMessage(ChatColor.RED + player.getName() + ChatColor.YELLOW + " was killed by " + ChatColor.RED + player.getKiller().getName());
-                            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
                             break;
                         }
                         break;
-                }
-                if(killedPlayer.getKiller() != null) {
-                    SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
-                    killedPlayer.getKiller().playSound(killedPlayer.getKiller().getLocation(), Sound.NOTE_PLING, 1, 1);
-                    killedPlayer.getKiller().sendMessage(ChatColor.GOLD + "+20 coins!");
                 }
                 Location[] locations = SkyWars.getGameManager().getLocations();
                 Location loc = locations[SkyWars.getPlayers().indexOf(player.getUniqueId())];
@@ -129,6 +121,13 @@ public class GameListeners implements Listener {
     @EventHandler
     public void onDeath(GamePlayerDeathEvent e) {
         Bukkit.broadcastMessage(ChatColor.RED + "DEBUG Event Called > " + SkyWars.getSpectators().size() + " >> " + Bukkit.getOnlinePlayers().size());
+        Player killedPlayer = e.getPlayer();
+        if(killedPlayer.getKiller() != null) {
+            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
+            killedPlayer.getKiller().playSound(killedPlayer.getKiller().getLocation(), Sound.NOTE_PLING, 1, 1);
+            killedPlayer.getKiller().sendMessage(ChatColor.GOLD + "+20 coins!");
+            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
+        }
         Scoreboard board = SkyWars.scoreboards.get(e.getPlayer().getUniqueId());
         board.createTeam("spec");
         ScoreboardTeam spec = board.getTeam("spec");
@@ -155,7 +154,8 @@ public class GameListeners implements Listener {
                     PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
                     Bukkit.broadcastMessage(ChatColor.YELLOW + "--------------------------------------------");
                     Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', profile.getPrefix() + " " + winner + ChatColor.YELLOW + " won the game!"));
+                    Bukkit.broadcastMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD +  "           WINNER");
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "       " + profile.getPrefix() + " " + winner));
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.YELLOW + "--------------------------------------------");
                     SkyWars.getGameManager().setGameState(GameState.REBOOTING);
@@ -167,9 +167,9 @@ public class GameListeners implements Listener {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                                "&e--------------------------------------------"
-                                + "&f&lYou Found:"
-                                + "&6" + profile.getCoins() + " coins."
+                                "&e--------------------------------------------\n"
+                                + "&e&lYou Found:\n"
+                                + "&6" + profile.getCoins() + " coins.\n"
                                 + "&e--------------------------------------------"
 
                         ));
