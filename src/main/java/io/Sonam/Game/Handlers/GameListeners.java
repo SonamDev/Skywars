@@ -154,7 +154,7 @@ public class GameListeners implements Listener {
                     PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
                     Bukkit.broadcastMessage(ChatColor.GOLD + "--------------------------------------------");
                     Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD +  "                   WINNER");
+                    Bukkit.broadcastMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD +  "                  WINNER");
                     Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner));
                     Bukkit.broadcastMessage("");
                     Bukkit.broadcastMessage(ChatColor.GOLD + "--------------------------------------------");
