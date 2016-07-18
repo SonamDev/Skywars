@@ -163,7 +163,7 @@ public class GameListeners implements Listener {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------");
-                        player.sendMessage(ChatColor.BOLD + "SUMMARY");
+                        player.sendMessage(ChatColor.BOLD + "  SUMMARY");
                         player.sendMessage("");
                         player.sendMessage(ChatColor.GOLD + "   You got " + profile.getCoins() + " coins");
                         player.sendMessage("");
@@ -206,8 +206,10 @@ public class GameListeners implements Listener {
             gameProfile.addCoins(20);
             player.sendMessage(ChatColor.GOLD + "+20 coins! (Staying the whole game)");
             player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
-            if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT))             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + profile.getUsername()));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + " " + profile.getUsername()));
+            player.sendMessage("");
+            if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT))             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER " + profile.getPrefix() + profile.getUsername()));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + " " + profile.getUsername()));
+            player.sendMessage("");
             player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
             SkyWars.gameRunning = false;
