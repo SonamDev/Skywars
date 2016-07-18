@@ -162,9 +162,9 @@ public class GameListeners implements Listener {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
-                        Utils.sendCenteredMessage(player, "§lSummary\n" + "\n");
+                        Utils.sendCenteredMessage(player, "&lSummary\n" + "\n");
                         Utils.sendCenteredMessage(player, "");
-                        Utils.sendCenteredMessage(player, "§6You got " + profile.getCoins() + " coins");
+                        Utils.sendCenteredMessage(player, "&6You got " + profile.getCoins() + " coins");
                         Utils.sendCenteredMessage(player, "");
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
                     }
@@ -198,15 +198,12 @@ public class GameListeners implements Listener {
             e.setCancelled(true);
     }
 
-    public void sendWin(UUID winner) {
+    private void sendWin(UUID winner) {
         for(Player player : Bukkit.getOnlinePlayers()) {
             PlayerProfile profile = Core.getProfileManager().getProfile(winner);
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
-            player.sendMessage("");
-            Utils.sendCenteredMessage(player, " §e§lWINNER");
-            Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', profile.getPrefix() + " " + profile.getUsername()));
-            player.sendMessage("");
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "------------------------------------------");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + " " + profile.getUsername()));
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "------------------------------------------");
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
             SkyWars.gameRunning = false;
         }
