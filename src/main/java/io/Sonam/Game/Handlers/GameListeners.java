@@ -150,7 +150,6 @@ public class GameListeners implements Listener {
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
             String winner;
             for(Player player : Bukkit.getOnlinePlayers()) {
-                if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
                     winner = player.getName();
                     UUID uuid = Bukkit.getPlayer(winner).getUniqueId();
                     SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
@@ -164,7 +163,6 @@ public class GameListeners implements Listener {
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     SkyWars.getGameManager().setGameState(GameState.REBOOTING);
                     SkyWars.gameRunning = false;
-                }
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
@@ -172,12 +170,13 @@ public class GameListeners implements Listener {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                         Utils.sendCenteredMessage(player, "§lSummary\n" + "\n");
-                        Utils.sendCenteredMessage(player, "§6You got " + profile.getCoins() + " coins.");
+                        Utils.sendCenteredMessage(player, "");
+                        Utils.sendCenteredMessage(player, "§6You got " + profile.getCoins() + " coins");
                         Utils.sendCenteredMessage(player, "");
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     }
                 }
-            }, 40L);
+            }, 60L);
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
                     SkyWars.getGameManager().endGame();
