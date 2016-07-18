@@ -150,19 +150,10 @@ public class GameListeners implements Listener {
         if((SkyWars.getSpectators().size() + 1) == Bukkit.getOnlinePlayers().size()) {
             String winner;
             for(Player player : Bukkit.getOnlinePlayers()) {
-                    winner = player.getName();
-                    UUID uuid = Bukkit.getPlayer(winner).getUniqueId();
-                    SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
-                    Bukkit.getPlayer(uuid).sendMessage(ChatColor.GOLD + "+500 coins!");
-                    PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
-                    player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
-                    player.sendMessage("");
-                    Utils.sendCenteredMessage(player, "§e§lWINNER");
-                    Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', profile.getPrefix() + " " + winner));
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
-                    SkyWars.getGameManager().setGameState(GameState.REBOOTING);
-                    SkyWars.gameRunning = false;
+                if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
+                    UUID uuid = player.getUniqueId();
+                    sendWin(uuid);
+                }
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(SkyWars.getPlugin(), new Runnable() {
                 public void run() {
@@ -203,6 +194,23 @@ public class GameListeners implements Listener {
     public void onRegen(EntityRegainHealthEvent e) {
         if(e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED || e.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN)
             e.setCancelled(true);
+    }
+
+    public void sendWin(UUID winner) {
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            UUID uuid = Bukkit.getPlayer(winner).getUniqueId();
+            SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
+            Bukkit.getPlayer(uuid).sendMessage(ChatColor.GOLD + "+500 coins!");
+            PlayerProfile profile = Core.getProfileManager().getProfile(uuid);
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
+            player.sendMessage("");
+            Utils.sendCenteredMessage(player, " §e§lWINNER");
+            Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', profile.getPrefix() + " " + profile.getUsername()));
+            player.sendMessage("");
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
+            SkyWars.getGameManager().setGameState(GameState.REBOOTING);
+            SkyWars.gameRunning = false;
+        }
     }
 
 
