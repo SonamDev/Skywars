@@ -152,6 +152,8 @@ public class GameListeners implements Listener {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
                     UUID uuid = player.getUniqueId();
+                    SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
+                    Bukkit.getPlayer(uuid).sendMessage(ChatColor.GOLD + "+500 coins!");
                     sendWin(uuid);
                 }
             }
@@ -198,10 +200,7 @@ public class GameListeners implements Listener {
 
     public void sendWin(UUID winner) {
         for(Player player : Bukkit.getOnlinePlayers()) {
-            UUID uuid = Bukkit.getPlayer(winner).getUniqueId();
-            SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
-            Bukkit.getPlayer(uuid).sendMessage(ChatColor.GOLD + "+500 coins!");
-            PlayerProfile profile = Core.getProfileManager().getProfile(uuid);
+            PlayerProfile profile = Core.getProfileManager().getProfile(winner);
             player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
             player.sendMessage("");
             Utils.sendCenteredMessage(player, " §e§lWINNER");
