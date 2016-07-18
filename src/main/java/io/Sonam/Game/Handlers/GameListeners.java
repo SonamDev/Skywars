@@ -7,6 +7,7 @@ import io.Sonam.Game.Menu.ItemStacks.MainItems;
 import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Stats.GameProfile;
 import io.Sonam.Game.Utils.GameState;
+import io.Sonam.Game.Utils.Utils;
 import io.Sonam.profiler.PlayerProfile;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.*;
@@ -124,9 +125,8 @@ public class GameListeners implements Listener {
         Player killedPlayer = e.getPlayer();
         if(killedPlayer.getKiller() != null) {
             SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
-            killedPlayer.getKiller().playSound(killedPlayer.getKiller().getLocation(), Sound.NOTE_PLING, 1, 1);
+            killedPlayer.getKiller().playSound(killedPlayer.getKiller().getLocation(), Sound.NOTE_PLING, 1, 5);
             killedPlayer.getKiller().sendMessage(ChatColor.GOLD + "+20 coins!");
-            SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
         }
         Scoreboard board = SkyWars.scoreboards.get(e.getPlayer().getUniqueId());
         board.createTeam("spec");
@@ -151,13 +151,16 @@ public class GameListeners implements Listener {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 if(!SkyWars.getSpectators().contains(player.getUniqueId())) {
                     winner = player.getName();
+                    UUID uuid = Bukkit.getPlayer(winner).getUniqueId();
+                    SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
+                    Bukkit.getPlayer(uuid).sendMessage(ChatColor.GOLD + "+500 coins!");
                     PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
-                    Bukkit.broadcastMessage(ChatColor.GOLD + "--------------------------------------------");
-                    Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD +  "                  WINNER");
-                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner));
-                    Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(ChatColor.GOLD + "--------------------------------------------");
+                    player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
+                    player.sendMessage("");
+                    Utils.sendCenteredMessage(player, ChatColor.YELLOW.toString() + ChatColor.BOLD +  "WINNER");
+                    Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner));
+                    player.sendMessage("");
+                    player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     SkyWars.getGameManager().setGameState(GameState.REBOOTING);
                     SkyWars.gameRunning = false;
                 }
@@ -166,14 +169,12 @@ public class GameListeners implements Listener {
                 public void run() {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                                "&6--------------------------------------------\n"
-                                + " &e&lYou Found\n"
-                                + "\n"
-                                + " &6" + profile.getCoins() + " coins\n"
-                                + "&6--------------------------------------------"
-
-                        ));
+                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
+                        Utils.sendCenteredMessage(player, ChatColor.BOLD + "Summary");
+                        player.sendMessage("");
+                        Utils.sendCenteredMessage(player, ChatColor.GOLD + "You found " + profile.getCoins());
+                        player.sendMessage("");
+                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     }
                 }
             }, 40L);
