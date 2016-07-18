@@ -8,7 +8,9 @@ import io.Sonam.Game.SkyWars;
 import io.Sonam.Game.Stats.GameProfile;
 import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Utils;
+import io.Sonam.profiler.PackageRank;
 import io.Sonam.profiler.PlayerProfile;
+import io.Sonam.profiler.Rank;
 import net.minecraft.server.v1_8_R3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.*;
@@ -50,7 +52,6 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageEvent e) {
-        Bukkit.broadcastMessage(ChatColor.YELLOW + e.getCause().name());
         PacketPlayOutTitle title = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, IChatBaseComponent.ChatSerializer.a(
                 "{\'text\':\'You Died!\', \'color\':\'red\'}"
         ), 13, 60, 10);
@@ -161,12 +162,12 @@ public class GameListeners implements Listener {
                 public void run() {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
-                        Utils.sendCenteredMessage(player, "&lSummary\n" + "\n");
-                        Utils.sendCenteredMessage(player, "");
-                        Utils.sendCenteredMessage(player, "&6You got " + profile.getCoins() + " coins");
-                        Utils.sendCenteredMessage(player, "");
-                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
+                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------");
+                        player.sendMessage(ChatColor.BOLD + "SUMMARY");
+                        player.sendMessage("");
+                        player.sendMessage(ChatColor.GOLD + "   You got " + profile.getCoins() + " coins");
+                        player.sendMessage("");
+                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------");
                     }
                 }
             }, 60L);
@@ -201,9 +202,10 @@ public class GameListeners implements Listener {
     private void sendWin(UUID winner) {
         for(Player player : Bukkit.getOnlinePlayers()) {
             PlayerProfile profile = Core.getProfileManager().getProfile(winner);
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "------------------------------------------");
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
+            if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT))             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + profile.getUsername()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + " " + profile.getUsername()));
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "------------------------------------------");
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
             SkyWars.gameRunning = false;
         }
