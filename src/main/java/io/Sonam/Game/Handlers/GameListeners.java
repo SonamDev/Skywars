@@ -202,6 +202,9 @@ public class GameListeners implements Listener {
     private void sendWin(UUID winner) {
         for(Player player : Bukkit.getOnlinePlayers()) {
             PlayerProfile profile = Core.getProfileManager().getProfile(winner);
+            GameProfile gameProfile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
+            gameProfile.addCoins(20);
+            player.sendMessage(ChatColor.GOLD + "+20 coins! (Staying the whole game)");
             player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
             if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT))             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + profile.getUsername()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e&lWINNER\n" + profile.getPrefix() + " " + profile.getUsername()));
