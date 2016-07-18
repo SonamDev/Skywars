@@ -207,8 +207,11 @@ public class GameListeners implements Listener {
             player.sendMessage(ChatColor.GOLD + "+20 coins! (Staying the whole game)");
             player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
             player.sendMessage("");
-            if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT))             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER " + profile.getPrefix() + profile.getUsername()));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + " " + profile.getUsername()));
+            if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT)) {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER " + profile.getPrefix() + profile.getUsername()));
+            } else {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + " " + profile.getUsername()));
+            }
             player.sendMessage("");
             player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
