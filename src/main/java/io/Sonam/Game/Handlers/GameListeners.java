@@ -157,7 +157,7 @@ public class GameListeners implements Listener {
                     PlayerProfile profile = Core.getProfileManager().getProfile(player.getUniqueId());
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     player.sendMessage("");
-                    Utils.sendCenteredMessage(player, ChatColor.YELLOW.toString() + ChatColor.BOLD +  "WINNER");
+                    Utils.sendCenteredMessage(player, "§e§lWINNER");
                     Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner));
                     player.sendMessage("");
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
@@ -170,10 +170,8 @@ public class GameListeners implements Listener {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
-                        Utils.sendCenteredMessage(player, ChatColor.BOLD + "Summary");
-                        player.sendMessage("");
-                        Utils.sendCenteredMessage(player, ChatColor.GOLD + "You found " + profile.getCoins());
-                        player.sendMessage("");
+                        Utils.sendCenteredMessage(player, "§lSummary\n" + "\n");
+                        Utils.sendCenteredMessage(player, "§6You got " + profile.getCoins() + " coins.\n\n");
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     }
                 }
