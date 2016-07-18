@@ -10,6 +10,7 @@ import io.Sonam.Game.Utils.GameState;
 import io.Sonam.Game.Utils.Utils;
 import io.Sonam.profiler.PlayerProfile;
 import net.minecraft.server.v1_8_R3.*;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -158,7 +159,7 @@ public class GameListeners implements Listener {
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     player.sendMessage("");
                     Utils.sendCenteredMessage(player, "§e§lWINNER");
-                    Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner));
+                    player.sendMessage(StringUtils.center(ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner), 1));
                     player.sendMessage("");
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     SkyWars.getGameManager().setGameState(GameState.REBOOTING);
@@ -171,7 +172,8 @@ public class GameListeners implements Listener {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                         Utils.sendCenteredMessage(player, "§lSummary\n" + "\n");
-                        Utils.sendCenteredMessage(player, "§6You got " + profile.getCoins() + " coins.\n\n");
+                        Utils.sendCenteredMessage(player, "§6You got " + profile.getCoins() + " coins.");
+                        Utils.sendCenteredMessage(player, "");
                         player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     }
                 }
