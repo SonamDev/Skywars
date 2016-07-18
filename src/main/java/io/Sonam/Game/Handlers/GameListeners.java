@@ -158,7 +158,7 @@ public class GameListeners implements Listener {
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     player.sendMessage("");
                     Utils.sendCenteredMessage(player, "§e§lWINNER");
-                    player.sendMessage(StringUtils.center(ChatColor.translateAlternateColorCodes('&', "          " + profile.getPrefix() + " " + winner), 2));
+                    Utils.sendCenteredMessage(player, ChatColor.translateAlternateColorCodes('&', profile.getPrefix() + " " + winner));
                     player.sendMessage("");
                     player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "--------------------------------------------------");
                     SkyWars.getGameManager().setGameState(GameState.REBOOTING);
