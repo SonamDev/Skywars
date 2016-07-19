@@ -119,7 +119,7 @@ public class Utils {
 
     public static void sendTabChat(Player player, String chat, String color) {
         CraftPlayer craftPlayer = (CraftPlayer) player;
-        PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\'text\':\'" + chat + "\', \'color\':\'gold\'}"), (byte) 2);
+        PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + chat + "\",\"color\":\"gold\"}"), (byte) 2);
         craftPlayer.getHandle().playerConnection.sendPacket(packet);
     }
 
