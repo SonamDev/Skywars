@@ -164,13 +164,13 @@ public class GameListeners implements Listener {
                 public void run() {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+                        player.sendMessage(ChatColor.GREEN +"▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
                         player.sendMessage("");
                         player.sendMessage(ChatColor.BOLD + "  SUMMARY");
                         player.sendMessage("");
-                        player.sendMessage(ChatColor.GOLD + "     You got " + profile.getCoins() + " coins");
+                        player.sendMessage(ChatColor.GOLD + "  You got " + profile.getCoins() + " coins");
                         player.sendMessage("");
-                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+                        player.sendMessage(ChatColor.GREEN +"▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
                     }
                 }
             }, 60L);
@@ -209,7 +209,7 @@ public class GameListeners implements Listener {
             gameProfile.addCoins(20);
             player.sendMessage(ChatColor.GOLD + "+20 coins! (Staying the whole game)");
             Utils.sendTabChat(player, "+20 coins", "gold");
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n");
+            player.sendMessage(ChatColor.GREEN + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n");
             player.sendMessage("");
             if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT)) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + profile.getUsername()));
@@ -217,7 +217,7 @@ public class GameListeners implements Listener {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + " " + profile.getUsername()));
             }
             player.sendMessage("");
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+            player.sendMessage(ChatColor.GREEN + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
             SkyWars.gameRunning = false;
         }
