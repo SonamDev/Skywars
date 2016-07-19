@@ -2,6 +2,7 @@ package io.Sonam.Game.Utils;
 
 import io.Sonam.Game.SkyWars;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -114,6 +115,12 @@ public class Utils {
             compensated += spaceLength;
         }
         player.sendMessage(sb.toString() + message);
+    }
+
+    public static void sendTabChat(Player player, String chat, String color) {
+        CraftPlayer craftPlayer = (CraftPlayer) player;
+        PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\'text\':\'" + chat + "\', \'color\':\'" + color + "\'}"), (byte) 2);
+        craftPlayer.getHandle().playerConnection.sendPacket(packet);
     }
 
 }

@@ -129,6 +129,7 @@ public class GameListeners implements Listener {
             SkyWars.getGameProfileManager().getGameProfile(killedPlayer.getKiller().getUniqueId()).addCoins(20);
             killedPlayer.getKiller().playSound(killedPlayer.getKiller().getLocation(), Sound.NOTE_PLING, 1, 5);
             killedPlayer.getKiller().sendMessage(ChatColor.GOLD + "+20 coins!");
+            Utils.sendTabChat(killedPlayer.getKiller(), "+20 coins", "gold");
         }
         Scoreboard board = SkyWars.scoreboards.get(e.getPlayer().getUniqueId());
         board.createTeam("spec");
@@ -155,6 +156,7 @@ public class GameListeners implements Listener {
                     UUID uuid = player.getUniqueId();
                     SkyWars.getGameProfileManager().getGameProfile(uuid).addCoins(500);
                     Bukkit.getPlayer(uuid).sendMessage(ChatColor.GOLD + "+500 coins!");
+                    Utils.sendTabChat(Bukkit.getPlayer(uuid), "+500 coins", "gold");
                     sendWin(uuid);
                 }
             }
@@ -162,12 +164,13 @@ public class GameListeners implements Listener {
                 public void run() {
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         GameProfile profile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------");
+                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+                        player.sendMessage("");
                         player.sendMessage(ChatColor.BOLD + "  SUMMARY");
                         player.sendMessage("");
-                        player.sendMessage(ChatColor.GOLD + "   You got " + profile.getCoins() + " coins");
+                        player.sendMessage(ChatColor.GOLD + "     You got " + profile.getCoins() + " coins");
                         player.sendMessage("");
-                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------");
+                        player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
                     }
                 }
             }, 60L);
@@ -205,7 +208,8 @@ public class GameListeners implements Listener {
             GameProfile gameProfile = SkyWars.getGameProfileManager().getGameProfile(player.getUniqueId());
             gameProfile.addCoins(20);
             player.sendMessage(ChatColor.GOLD + "+20 coins! (Staying the whole game)");
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
+            Utils.sendTabChat(player, "+20 coins", "gold");
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n");
             player.sendMessage("");
             if(profile.getRank().equals(Rank.DEFAULT) && profile.getPackageRank().equals(PackageRank.DEFAULT)) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + profile.getUsername()));
@@ -213,7 +217,7 @@ public class GameListeners implements Listener {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  &e&lWINNER: " + profile.getPrefix() + " " + profile.getUsername()));
             }
             player.sendMessage("");
-            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "-----------------\n");
+            player.sendMessage(ChatColor.GREEN.toString() + ChatColor.STRIKETHROUGH + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
             SkyWars.getGameManager().setGameState(GameState.REBOOTING);
             SkyWars.gameRunning = false;
         }
